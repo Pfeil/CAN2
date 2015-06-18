@@ -15,7 +15,7 @@
 
 
 #define DEFN_CONFIG( CLASSNAME, Caption )    \
-    Configurable CLASSNAME::config(#CLASSNAME, Caption)
+    Configurable CLASSNAME::config(#CLASSNAME, Caption);
 
 
 #define CONFIGURABLE_ADD_ITEM_PRIVATE( CLASSNAME, KEY, CAPTION, HELP, DEFAULT_VALUE, SWITCH_ITEM_KEY, OPTIONS )  \

@@ -111,6 +111,7 @@ private:
     Attachment* currentAttachment() const;
     Page currentPage() const;
     bool canRemoveSong( Song* song );
+    bool canRemoveAttachment(const Attachment *attachment );
 
     void open(const QString& filename);
 

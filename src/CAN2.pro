@@ -142,7 +142,10 @@ SOURCES += main.cpp\
     Dialogs/hud.cpp \
     Dialogs/addfilestoindexdialog.cpp \
     zipped.cpp \
-    Dialogs/chordpatternviewerscrollarea.cpp
+    Dialogs/chordpatternviewerscrollarea.cpp \
+    Attachments/ChordPatternAttachment/chordpatternproxyattachment.cpp \
+    AttachmentView/chordpatternproxyattachmentview.cpp \
+    Attachments/ChordPatternAttachment/abstractchordpatternattachment.cpp
 
 HEADERS  += mainwindow.h \
     project.h \
@@ -255,7 +258,10 @@ HEADERS  += mainwindow.h \
     Dialogs/hud.h \
     Dialogs/addfilestoindexdialog.h \
     zipped.h \
-    Dialogs/chordpatternviewerscrollarea.h
+    Dialogs/chordpatternviewerscrollarea.h \
+    Attachments/ChordPatternAttachment/chordpatternproxyattachment.h \
+    AttachmentView/chordpatternproxyattachmentview.h \
+    Attachments/ChordPatternAttachment/abstractchordpatternattachment.h
 
 FORMS    += mainwindow.ui \
     DatabaseView/SongDatabaseView/songtableviewcontainer.ui \
@@ -276,7 +282,8 @@ FORMS    += mainwindow.ui \
     AttachmentView/IndexedFileAttachmentView/indexedfilechoosedialog.ui \
     Dialogs/tagdialog.ui \
     Dialogs/chordpatternviewer.ui \
-    Dialogs/addfilestoindexdialog.ui
+    Dialogs/addfilestoindexdialog.ui \
+    AttachmentView/chordpatternproxyattachmentview.ui
 
 RESOURCES += \
     ressources.qrc

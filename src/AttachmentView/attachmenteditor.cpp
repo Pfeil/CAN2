@@ -1,5 +1,7 @@
 #include "attachmenteditor.h"
 #include <QHBoxLayout>
+#include "Database/SongDatabase/song.h"
+#include "attachmentchooser.h"
 
 AttachmentEditor::AttachmentEditor(QWidget *parent) :
     QWidget(parent)
@@ -10,6 +12,8 @@ AttachmentEditor::AttachmentEditor(QWidget *parent) :
     layout->setSpacing( 0 );
     layout->addWidget( m_scrollArea );
     setAttachment( NULL );
+
+    assert( parent->inherits( "AttachmentChooser" ));
 }
 
 AttachmentView* createAttachmentView(Attachment* attachment)
@@ -36,11 +40,30 @@ void AttachmentEditor::setAttachment(Attachment *attachment)
     delete m_currentView;
     delete m_scrollArea->layout();
     QVBoxLayout* layout = new QVBoxLayout(m_scrollArea);
+    layout->setSpacing( 0 );
+    layout->setMargin( 0 );
 
 
     if (attachment)
     {
         m_currentView = createAttachmentView( attachment );
+        connect( m_currentView, &AttachmentView::focus, [this](const Attachment* f)
+        {
+            // why not setAttachment(f)?
+            // 1. f is const
+            // 2. ensure that a is an attachment of this song.
+            int i = 0;
+            for (Attachment* a : f->song()->attachments())
+            {
+                if (a == f)
+                {
+                    qobject_assert_cast<AttachmentChooser*>( parent() )->setAttachment( i );
+                    break;
+                }
+                ++i;
+            }
+        });
+
         if (m_attachmentViewOptions.contains(attachment))
         {
             m_currentView->restoreOptions(m_attachmentViewOptions[attachment]);

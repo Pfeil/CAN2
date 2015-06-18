@@ -8,7 +8,7 @@
 #include <QMessageBox>
 #include <QProgressDialog>
 
-DEFN_CONFIG( PDFCreator, "PDF Export" );
+DEFN_CONFIG( PDFCreator, tr("PDF Export") )
 
 #include "pdfcreatorconfig.h"
 
@@ -394,7 +394,7 @@ void PDFCreator::drawContinueOnNextPageMark()
     currentPainter().restore();
 }
 
-void PDFCreator::paintChordPatternAttachment(ChordPatternAttachment *attachment)
+void PDFCreator::paintChordPatternAttachment(AbstractChordPatternAttachment *attachment)
 {
     currentPainter().save();
     configurePainter( currentPainter() );
@@ -980,7 +980,7 @@ void PDFCreator::exportSetlist( Setlist* setlist, QWidget* widgetParent )
     }
 }
 
-void PDFCreator::paintChordPatternAttachment(ChordPatternAttachment *attachment, const QString &path)
+void PDFCreator::paintChordPatternAttachment(AbstractChordPatternAttachment *attachment, const QString &path)
 {
     // save config and replace it at the end.
     Configurable savedConfigs = config;

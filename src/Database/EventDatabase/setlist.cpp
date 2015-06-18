@@ -192,11 +192,11 @@ QList<void*> Setlist::viewableAttachments(const QModelIndex &index) const
     {
         for (Attachment* attachment : item->song()->attachments())
         {
-            if (attachment->type() == "ChordPatternAttachment")
+            if (attachment->inherits( "ChordPatternAttachment" ) )
             {
                 list << attachment;
             }
-            else if (attachment->type() == "PDFAttachment")
+            else if (attachment->inherits( "PDFAttachment" ) )
             {
                 list << attachment;
             }

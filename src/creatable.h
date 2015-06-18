@@ -21,6 +21,7 @@ class Creatable
 {
 public:
     Creatable();
+    virtual QString type() const = 0;
 
     /**
      * @brief create create an object with given classname with default constructor.
@@ -72,6 +73,8 @@ public:                                     \
     const QString CLASSNAME::TYPE = #CLASSNAME;
 
 #define DEFN_CREATABLE( CLASSNAME, CATEGORY ) \
-    Registerer<CLASSNAME> CLASSNAME::reg(#CLASSNAME, #CATEGORY, #CLASSNAME)
+    Registerer<CLASSNAME> CLASSNAME::reg(#CLASSNAME, #CATEGORY, #CLASSNAME); \
+    const QString CLASSNAME::TYPE = #CLASSNAME;
+
 
 #endif // CREATABLE_H

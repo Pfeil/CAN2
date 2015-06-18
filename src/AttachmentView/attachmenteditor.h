@@ -11,7 +11,7 @@ class AttachmentEditor : public QWidget
     Q_OBJECT
 public:
     explicit AttachmentEditor(QWidget *parent = 0);
-    void setAttachment(Attachment* attachment);
+    void setAttachment(Attachment *attachment);
 
 public slots:
     void updateAttachmentView();

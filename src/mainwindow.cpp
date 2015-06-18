@@ -15,10 +15,11 @@
 #include <QProgressDialog>
 #include <QScrollArea>
 #include <QLabel>
+#include "Attachments/ChordPatternAttachment/chordpatternproxyattachment.h"
 
 #define HIDE_CLONE_SYNC // because it does not work.
 
-DEFN_CONFIG( MainWindow, "Global" );
+DEFN_CONFIG( MainWindow, tr("Global") )
 
 QString defaultStyleSheet()
 {
@@ -237,6 +238,10 @@ void MainWindow::createAttachmentActions()
         {
             action->setIcon(QIcon(":/icons/icons/song1.png"));
         }
+        else if (classname == "ChordPatternProxyAttachment")
+        {
+            action->setIcon( QIcon("") );
+        }
         else
         {
             qWarning() << QString("action <create %1> has no icon.").arg( classname );
@@ -247,9 +252,19 @@ void MainWindow::createAttachmentActions()
             Song* song = currentSong();
             if (song)
             {
+                Attachment* lastAttachment = currentAttachment();
                 SongAddAttachmentCommand* command = new SongAddAttachmentCommand( song, classname );
                 app().pushCommand( command );
                 updateWhichWidgetsAreEnabled();
+
+                qDebug() << lastAttachment << command->attachment();
+
+                if (lastAttachment->inherits( "ChordPatternAttachment" )
+                 && command->attachment()->inherits( "ChordPatternProxyAttachment" ) )
+                {
+                    qobject_assert_cast<ChordPatternProxyAttachment*>( command->attachment() )->setChordPatternAttachment(
+                                qobject_assert_cast<ChordPatternAttachment*>(lastAttachment) );
+                }
             }
         });
         m_newAttachmentActions.insert( classname, action );
@@ -466,37 +481,31 @@ void setEnabled( QObject* o, bool enable )
 
 void MainWindow::updateWhichWidgetsAreEnabled()
 {
-    Project* cProject = &m_project;
     Song* cSong = currentSong();
     Attachment* cAttachment = currentAttachment();
 
-    QObjectList attachmentObjects, songObects, projectObjects, alwaysObjects;
+    QObjectList attachmentObjects, songObects;
 
-//    projectObjects      << ui->actionNew_Song;
-    alwaysObjects       << ui->actionNew_Project;
-    projectObjects      << ui->actionSave;
-    projectObjects      << ui->actionSave_As;
-    // ui->actionOpen;
-    // ui->actionUpdate_Index;
-    // ui->actionAdd_Folder;
-    // ui->actionClear_Index;
     for (QAction* action : m_newAttachmentActions)
     {
         songObects << action;
     }
 
+
     attachmentObjects   << ui->actionDelete_Attachment;
-    // ui->actionUndo;
-    // ui->actionRedo;
-//    songObects          << ui->actionDelete_Song;
-    // ui->actionClone;
-    // ui->actionOpen_Terminal_here;
     attachmentObjects   << ui->actionRename_Attachment;
     attachmentObjects   << ui->actionDuplicate_Attachment;
 
-    for (QObject* o : projectObjects )      ::setEnabled( o, !!cProject     );
     for (QObject* o : songObects )          ::setEnabled( o, !!cSong        );
     for (QObject* o : attachmentObjects)    ::setEnabled( o, !!cAttachment  );
+
+    bool chordPatternProxyAttachmentEnabled = false;
+    if (cAttachment && cAttachment->inherits( "ChordPatternAttachment" ))
+    {
+        chordPatternProxyAttachmentEnabled = true;
+    }
+    m_newAttachmentActions["ChordPatternProxyAttachment"]->setEnabled( chordPatternProxyAttachmentEnabled );
+
 }
 
 MainWindow::Page MainWindow::currentPage() const
@@ -560,6 +569,8 @@ void MainWindow::on_actionRedo_triggered()
     updateWhichWidgetsAreEnabled();
 }
 
+
+
 #include "Commands/SongCommands/songremoveattachmentcommand.h"
 void MainWindow::on_actionDelete_Attachment_triggered()
 {
@@ -568,8 +579,19 @@ void MainWindow::on_actionDelete_Attachment_triggered()
 
     if (song && index >= 0)
     {
-        app().pushCommand( new SongRemoveAttachmentCommand( song, index ) );
-        updateWhichWidgetsAreEnabled();
+        if (canRemoveAttachment( song->attachment(index) ))
+        {
+            app().pushCommand( new SongRemoveAttachmentCommand( song, index ) );
+            updateWhichWidgetsAreEnabled();
+        }
+        else
+        {
+            QMessageBox::warning( this,
+                                  tr("Attachment cannot be removed"),
+                                  tr("This attachment is currently in use and can thus not be removed."),
+                                  QMessageBox::Ok,
+                                  QMessageBox::NoButton );
+        }
     }
 }
 
@@ -625,6 +647,25 @@ bool MainWindow::canRemoveSong(Song *song)
         }
     }
 
+    return true;
+}
+
+bool MainWindow::canRemoveAttachment( const Attachment* attachment )
+{
+    for ( const Song* song : m_project.songDatabase()->songs() )
+    {
+        for (const Attachment* a : song->attachments())
+        {
+            if (a->inherits("ChordPatternProxyAttachment"))
+            {
+                const ChordPatternProxyAttachment* cppa = qobject_assert_cast<const ChordPatternProxyAttachment*>( a );
+                if (cppa->source() == qobject_cast<const ChordPatternAttachment*>(attachment))
+                {
+                    return false;
+                }
+            }
+        }
+    }
     return true;
 }
 

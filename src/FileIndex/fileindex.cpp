@@ -4,7 +4,7 @@
 #include "indexer.h"
 #include <QFileInfo>
 
-DEFN_CONFIG( FileIndex, "File Index" );
+DEFN_CONFIG( FileIndex, tr("File Index") )
 
 CONFIGURABLE_ADD_ITEM_HIDDEN( FileIndex, FileIndex, QByteArray() );
 

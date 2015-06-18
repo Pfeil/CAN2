@@ -1,6 +1,6 @@
 #include "stringeditor.h"
 
-DEFN_CREATABLE(StringEditor, CellEditor);
+DEFN_CREATABLE(StringEditor, CellEditor)
 
 StringEditor::StringEditor(QWidget *parent) :
     CellEditor(parent),

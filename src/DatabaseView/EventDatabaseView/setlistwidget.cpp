@@ -12,7 +12,7 @@
 #include <QProgressDialog>
 #include "util.h"
 
-DEFN_CONFIG( SetlistWidget, "SetlistWidget" );
+DEFN_CONFIG( SetlistWidget, tr("SetlistWidget") )
 
 SetlistWidget::SetlistWidget(QWidget *parent) :
     QWidget(parent),

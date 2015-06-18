@@ -38,7 +38,7 @@ void Attachment::makeNameUnique()
     setName( newName );
 }
 
-bool Attachment::create(const QJsonObject &object, Attachment *&attachment)
+bool Attachment::create(const QJsonObject &object, Attachment *&attachment, Song* song)
 {
     checkJsonObject( object, "classname", QJsonValue::String );
 
@@ -50,6 +50,7 @@ bool Attachment::create(const QJsonObject &object, Attachment *&attachment)
     }
 
     attachment = static_cast<Attachment*>( Creatable::create( classname ) );
+    attachment->setSong( song );
 
     attachment->setName( object["name"].toString() );
     return attachment->restoreFromJsonObject( object );

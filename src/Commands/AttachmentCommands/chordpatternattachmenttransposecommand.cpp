@@ -1,6 +1,6 @@
 #include "chordpatternattachmenttransposecommand.h"
 
-ChordPatternAttachmentTransposeCommand::ChordPatternAttachmentTransposeCommand(ChordPatternAttachment* attachment , int transpose) :
+ChordPatternAttachmentTransposeCommand::ChordPatternAttachmentTransposeCommand(AbstractChordPatternAttachment* attachment , int transpose) :
     AttachmentCommand(attachment),
     m_transpose( transpose )
 {
@@ -9,11 +9,11 @@ ChordPatternAttachmentTransposeCommand::ChordPatternAttachmentTransposeCommand(C
 
 void ChordPatternAttachmentTransposeCommand::undo()
 {
-    attachment<ChordPatternAttachment>()->process( -m_transpose );
+    attachment<AbstractChordPatternAttachment>()->transpose( -m_transpose );
 }
 
 void ChordPatternAttachmentTransposeCommand::redo()
 {
 
-    attachment<ChordPatternAttachment>()->process( m_transpose );
+    attachment<AbstractChordPatternAttachment>()->transpose( m_transpose );
 }

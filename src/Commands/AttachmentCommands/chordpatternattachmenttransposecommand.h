@@ -7,7 +7,7 @@
 class ChordPatternAttachmentTransposeCommand : public AttachmentCommand
 {
 public:
-    ChordPatternAttachmentTransposeCommand(ChordPatternAttachment *attachment, int transpose);
+    ChordPatternAttachmentTransposeCommand(AbstractChordPatternAttachment *attachment, int transpose);
     void undo();
     void redo();
 

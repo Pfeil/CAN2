@@ -6,11 +6,12 @@
 #include <QMouseEvent>
 #include <QKeyEvent>
 
-DEFN_CONFIG( ChordPatternViewer, "ChordPatternViewer" );
+DEFN_CONFIG( ChordPatternViewer, tr("ChordPatternViewer") )
+
 CONFIGURABLE_ADD_ITEM_HIDDEN( ChordPatternViewer, zoom, 1.0 );
 CONFIGURABLE_ADD_ITEM_HIDDEN( ChordPatternViewer, line, true );
 
-ChordPatternViewer::ChordPatternViewer(ChordPatternAttachment* attachment, QWidget *parent) :
+ChordPatternViewer::ChordPatternViewer(AbstractChordPatternAttachment *attachment, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ChordPatternViewer),
     m_attachment( attachment ),
@@ -83,7 +84,7 @@ ChordPatternViewer::~ChordPatternViewer()
     delete ui;
 }
 
-void ChordPatternViewer::displayChordPatternAttachment(ChordPatternAttachment *attachment, QWidget* parent)
+void ChordPatternViewer::displayChordPatternAttachment(AbstractChordPatternAttachment *attachment, QWidget* parent)
 {
     ChordPatternViewer cpv( attachment, parent );
     cpv.exec();

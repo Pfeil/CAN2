@@ -2,7 +2,7 @@
 #include "ui_addfilestoindexdialog.h"
 #include <QFileDialog>
 
-DEFN_CONFIG( AddFilesToIndexDialog, "AddFilesToIndexDialog" );
+DEFN_CONFIG( AddFilesToIndexDialog, tr("AddFilesToIndexDialog") )
 
 CONFIGURABLE_ADD_ITEM_HIDDEN( AddFilesToIndexDialog, defaultpath, QDir::homePath() );
 CONFIGURABLE_ADD_ITEM_HIDDEN( AddFilesToIndexDialog, includePDF, true );

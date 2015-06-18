@@ -65,7 +65,7 @@ public:
 
     const Page* currentPage() const;
 
-    static void paintChordPatternAttachment(ChordPatternAttachment *attachment, const QString& path);
+    static void paintChordPatternAttachment(AbstractChordPatternAttachment *attachment, const QString& path);
 
 
 private:
@@ -125,7 +125,7 @@ private:
     bool paintSong(const Song *song);
     void paintAttachment(Attachment *attachment );
     void paintPDFAttachment(PDFAttachment *attachment );
-    void paintChordPatternAttachment(ChordPatternAttachment *attachment );
+    void paintChordPatternAttachment(AbstractChordPatternAttachment *attachment );
     void insertTableOfContentsStub();
     void paintSetlist();
     void paintTableOfContents();

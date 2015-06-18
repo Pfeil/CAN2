@@ -306,7 +306,7 @@ void SetlistView::updateCellWidgets()
 
             for (Attachment* attachment : song->attachments())
             {
-                if (attachment->type() == ChordPatternAttachment::TYPE )
+                if (attachment->type() ==  ChordPatternAttachment::TYPE )
                 {
                     ChordPatternAttachment* cpa = qobject_assert_cast<ChordPatternAttachment*>( attachment );
                     QAction* action = new QAction(menu);

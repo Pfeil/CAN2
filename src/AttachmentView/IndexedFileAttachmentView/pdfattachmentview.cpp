@@ -7,8 +7,8 @@
 
 #include "global.h"
 
-DEFN_CREATABLE(PDFAttachmentView, AttachmentView);
-DEFN_CONFIG( PDFAttachmentView, "PDF" );
+DEFN_CREATABLE(PDFAttachmentView, AttachmentView)
+DEFN_CONFIG( PDFAttachmentView, "PDF" )
 
 CONFIGURABLE_ADD_ITEM( PDFAttachmentView,
                        Quality,

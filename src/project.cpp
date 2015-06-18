@@ -2,7 +2,7 @@
 #include "global.h"
 #include <QThread>
 
-DEFN_CONFIG(Project, "Project");
+DEFN_CONFIG(Project, tr("Project"))
 
 Project::Project() :
     Zipped("can"),

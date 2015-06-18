@@ -26,6 +26,7 @@ void SongAddAttachmentCommand::redo()
         m_attachment->makeNameUnique();
     }
 
+    song()->markForAddition();
     song()->addAttachment( m_attachment );
     m_ownsAttachment = false;
 }
@@ -34,6 +35,7 @@ void SongAddAttachmentCommand::undo()
 {
     assert( m_attachment );
 
+    song()->markForAddition();
     song()->removeAttachment( m_attachment );
     m_ownsAttachment = true;
 }

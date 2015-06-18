@@ -24,6 +24,11 @@ Project::~Project()
 
 void Project::setCanClose(bool b)
 {
+
+    // write index to tree to file.
+    // else if e.g. a new song was created and then the project is closed, this song will never be added to the index.
+    // thus, synchronizations that were started after reopening the project will not cover this song.
+
     if (m_canClose != b)
     {
         m_canClose = b;
@@ -59,6 +64,8 @@ bool Project::loadFromTempDir()
     QUndoStack::clear();
     emit undoStackCleared();
     setCanClose(true);
+
+    clearRemoveAndAdditionMarks();
 
     return success;
 }

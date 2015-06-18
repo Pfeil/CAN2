@@ -20,12 +20,14 @@ SongDatabaseRemoveSongCommand::~SongDatabaseRemoveSongCommand()
 
 void SongDatabaseRemoveSongCommand::undo()
 {
+    m_song->unmarkForDeletion();
     m_ownsSong = false;
     database()->insertSong(m_song, m_index);
 }
 
 void SongDatabaseRemoveSongCommand::redo()
 {
+    m_song->markForDeletion();
     m_ownsSong = true;
     m_index = database()->removeSong(m_song);
 }

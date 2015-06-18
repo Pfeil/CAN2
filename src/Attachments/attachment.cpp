@@ -1,7 +1,8 @@
 #include "attachment.h"
 #include "Database/SongDatabase/song.h"
 
-Attachment::Attachment()
+Attachment::Attachment() :
+    Taggable()
 {
 }
 
@@ -38,7 +39,7 @@ void Attachment::makeNameUnique()
     setName( newName );
 }
 
-bool Attachment::create(const QJsonObject &object, Attachment *&attachment)
+bool Attachment::create(const QJsonObject &object, Attachment *&attachment )
 {
     checkJsonObject( object, "classname", QJsonValue::String );
 

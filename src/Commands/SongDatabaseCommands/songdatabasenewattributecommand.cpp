@@ -9,10 +9,12 @@ SongDatabaseNewAttributeCommand::SongDatabaseNewAttributeCommand(SongDatabase *s
 
 void SongDatabaseNewAttributeCommand::redo()
 {
+    database()->markForAddition();
     database()->appendColumn(m_key);
 }
 
 void SongDatabaseNewAttributeCommand::undo()
 {
+    database()->markForAddition();
     database()->removeColumns(database()->columnCount() - 1, 1, QModelIndex());
 }

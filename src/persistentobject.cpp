@@ -3,8 +3,10 @@
 #include <QJsonDocument>
 #include "global.h"
 #include <QDateTime>
+#include "project.h"
 
-PersistentObject::PersistentObject()
+PersistentObject::PersistentObject() :
+    m_project( NULL )
 {
     m_randomID = createRandomID();
 }
@@ -84,4 +86,32 @@ QString PersistentObject::createRandomID()
         }
     }
     return s;
+}
+
+QString PersistentObject::filename() const
+{
+    return QString("%1%2").arg( filenameBase() ).arg( randomID() );
+}
+
+QString PersistentObject::absoluteFilename() const
+{
+    return project()->makeAbsolute( filename() );
+}
+
+void PersistentObject::markForDeletion() const
+{
+    project()->markFileForDeletion( absoluteFilename() );
+}
+void PersistentObject::unmarkForDeletion() const
+{
+    project()->unmarkFileForDeletion( absoluteFilename() );
+}
+
+void PersistentObject::markForAddition() const
+{
+    project()->markFileForAddition( absoluteFilename() );
+}
+void PersistentObject::unmarkForAddition() const
+{
+    project()->unmarkFileForAddition( absoluteFilename() );
 }

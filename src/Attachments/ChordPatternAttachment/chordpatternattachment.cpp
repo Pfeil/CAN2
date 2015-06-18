@@ -10,6 +10,7 @@ DEFN_CREATABLE_NAME(ChordPatternAttachment, Attachment, QT_TRANSLATE_NOOP("Creat
 const int TAB_WIDTH = 8;
 
 ChordPatternAttachment::ChordPatternAttachment() :
+    Attachment(),
     m_pattern( "" )
 {
     setName( tr("Chord Pattern") );
@@ -17,7 +18,7 @@ ChordPatternAttachment::ChordPatternAttachment() :
 
 void ChordPatternAttachment::copy(Attachment *&copied) const
 {
-    copied = new ChordPatternAttachment();
+    copied = new ChordPatternAttachment( );
     ChordPatternAttachment* cpa = dynamic_cast<ChordPatternAttachment*>(copied);
     cpa->m_pattern = m_pattern;
 }

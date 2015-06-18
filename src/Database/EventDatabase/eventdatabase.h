@@ -52,14 +52,11 @@ public:
     //
     /////////////////////////////////////////////////
 public:
-    bool restoreFromJsonObject(const QJsonObject & object);
-    QJsonObject toJsonObject() const;
-
+    bool saveTo(const QString &path) const;
+    bool loadFrom(const QString &path);
+    QString filenameBase() const { return "eventdatabase"; }
 
     QList<Event*> events() const { return m_events; }
-
-
-
 
     static const QString EVENT_POINTERS_MIME_DATA_FORMAT;
 

@@ -12,16 +12,14 @@ EventDatabase::EventDatabase(Project *project) :
 }
 
 
-QJsonObject EventDatabase::toJsonObject() const
+bool EventDatabase::saveTo( const QString& path ) const
 {
-    QJsonObject json;
-
+    Database::saveTo(path);
     for (int i = 0; i < m_events.length(); ++i)
     {
         m_events[i]->saveTo( project()->makeAbsolute( QString("event%1").arg( m_events[i]->randomID() ) ) );
     }
-
-    return json;
+    return true;
 }
 
 Qt::DropActions EventDatabase::supportedDragActions() const
@@ -29,22 +27,31 @@ Qt::DropActions EventDatabase::supportedDragActions() const
     return Qt::CopyAction | Qt::MoveAction;
 }
 
-bool EventDatabase::restoreFromJsonObject(const QJsonObject &object)
+bool EventDatabase::loadFrom(const QString& path)
 {
-    Q_UNUSED( object );
-
-    beginResetModel();
     bool success = true;
 
-    m_events.clear();
-    QStringList filenames = QDir( project()->path() ).entryList( QStringList() << "event*" );
-    filenames.removeOne( "eventDatabase" );
+    reset();
+    beginResetModel();
 
-    for (const QString& filename : filenames)
+    if (Database::loadFrom( path ))
     {
-        Event* e = new Event( this );
-        success &= e->loadFrom( project()->makeAbsolute( filename ) );
-        m_events << e;
+        blockSignals(true);
+        QStringList filenames = QDir( project()->path() ).entryList( QStringList() << "event*" );
+        filenames.removeOne( "eventDatabase" );
+
+        for (const QString& filename : filenames)
+        {
+            Event* e = new Event( this );
+            success &= e->loadFrom( project()->makeAbsolute( filename ) );
+            m_events << e;
+        }
+        blockSignals(false);
+    }
+    else
+    {
+        WARNING << "Loading SongDatabase failed.";
+        success = false;
     }
 
     endResetModel();

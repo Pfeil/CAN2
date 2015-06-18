@@ -11,7 +11,7 @@ class Attachment : public QObject, public Taggable, public Creatable
 public:
 
     Attachment();
-    Attachment(const Attachment &) : QObject() {}
+//    Attachment(const Attachment &) : QObject() {}
 
     void setName( const QString & name );
     QString name() const { return m_name; }
@@ -32,6 +32,12 @@ public:
     virtual QString type() const = 0;
 
     QString description() const;
+
+    /**
+     * @brief filenameBase an attachments are saved in the file its song. thus filename is arbitrary and should never be required.
+     * @return
+     */
+    QString filenameBase() const { assert( false ); return ""; }
 
 signals:
     void attachmentRenamed(QString);

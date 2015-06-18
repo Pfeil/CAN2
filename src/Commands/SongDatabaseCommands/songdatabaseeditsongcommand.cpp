@@ -17,10 +17,12 @@ SongDatabaseEditSongCommand::SongDatabaseEditSongCommand(SongDatabase *         
 
 void SongDatabaseEditSongCommand::redo()
 {
+    database()->songAtIndex( m_index )->markForAddition();
     database()->setData( m_index, m_newData, m_role );
 }
 
 void SongDatabaseEditSongCommand::undo()
 {
+    database()->songAtIndex( m_index )->markForAddition();
     database()->setData( m_index, m_oldData, m_role );
 }

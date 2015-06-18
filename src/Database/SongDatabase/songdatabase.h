@@ -41,7 +41,7 @@ public:
 
     Q_OBJECT
 public:
-    SongDatabase(Project* project);
+    SongDatabase(Project *project);
 
     QList<Song*> songs() const { return m_songs; }
     QStringList attributeKeys() const ;
@@ -156,6 +156,7 @@ public:
     QJsonObject toJsonObject() const;
     bool saveTo(const QString &path) const;
     bool loadFrom(const QString &path);
+    QString filenameBase() const { return "songdatabase"; }
 public slots:
     void reset(bool initialize = true);
 

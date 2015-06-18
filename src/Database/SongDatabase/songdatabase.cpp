@@ -22,8 +22,8 @@ QList<SongDatabase::InitialColumn> initColumns()
 
 const QList<SongDatabase::InitialColumn> SongDatabase::INITIAL_COLUMNS = initColumns();
 
-SongDatabase::SongDatabase(Project *project) :
-    Database(project)
+SongDatabase::SongDatabase( Project* project ) :
+    Database( project )
 {
     Song::seedRandomID();
 }
@@ -284,6 +284,8 @@ void SongDatabase::appendSong(Song *song)
 void SongDatabase::insertSong(Song* song, const int index)
 {
     m_tmpSongBuffer.append(song);
+    song->unmarkForDeletion();
+    song->markForAddition();
     connect( song, SIGNAL(attachmentAdded(int)),   this, SIGNAL(attachmentAdded(int)  ));
     connect( song, SIGNAL(attachmentRemoved(int)), this, SIGNAL(attachmentRemoved(int)));
     connect( song, SIGNAL(attachmentRenamed(int, QString)), this, SIGNAL(attachmentRenamed(int,QString)));
@@ -299,6 +301,8 @@ int SongDatabase::removeSong(Song* song)
     }
     else
     {
+        song->markForDeletion();
+        song->unmarkForAddition();
         assert( removeRows(index, 1, QModelIndex()) );
     }
     return index;
@@ -438,7 +442,7 @@ bool SongDatabase::loadFrom(const QString &path)
     }
     else
     {
-        WARNING << "Loading failed.";
+        WARNING << "Loading SongDatabase failed.";
         success = false;
     }
 

@@ -4,7 +4,8 @@
 
 QMap<QString, int> Taggable::m_allTags;
 
-Taggable::Taggable()
+Taggable::Taggable() :
+    PersistentObject( )
 {
 }
 

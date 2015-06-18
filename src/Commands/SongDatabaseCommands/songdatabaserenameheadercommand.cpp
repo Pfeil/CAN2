@@ -18,10 +18,12 @@ SongDatabaseRenameHeaderCommand::SongDatabaseRenameHeaderCommand(SongDatabaseSor
 
 void SongDatabaseRenameHeaderCommand::redo()
 {
+    m_songDatabase->sourceModel()->markForAddition();
     m_songDatabase->setHeaderData( m_section, m_orientation, m_newName, Qt::EditRole );
 }
 
 void SongDatabaseRenameHeaderCommand::undo()
 {
+    m_songDatabase->sourceModel()->unmarkForAddition();
     m_songDatabase->setHeaderData( m_section, m_orientation, m_oldName, Qt::EditRole );
 }

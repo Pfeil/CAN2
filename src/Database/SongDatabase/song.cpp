@@ -2,16 +2,21 @@
 #include "songdatabase.h"
 #include "global.h"
 #include <QJsonDocument>
+#include "project.h"
 
 Song::Song(SongDatabase* database) :
-    m_songDatabase(database)
+    Taggable(),
+    m_songDatabase( database )
 {
+    setProject( database->project() );
+
     int n = m_songDatabase->columnCount();
     m_attributes.reserve(n);
     for (int i = 0; i < n; ++i)
     {
         m_attributes.append(QString());
     }
+
 
     setAttribute(2, QDateTime::currentDateTime());
 }
@@ -249,7 +254,6 @@ Song* Song::copy() const
     song->restoreFromJsonObject( json );
     return song;
 }
-
 
 
 

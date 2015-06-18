@@ -19,12 +19,14 @@ SongRemoveAttachmentCommand::~SongRemoveAttachmentCommand()
 
 void SongRemoveAttachmentCommand::undo()
 {
+    song()->markForAddition();
     m_ownsAttachment = false;
     song()->insertAttachment( m_attachment, m_index );
 }
 
 void SongRemoveAttachmentCommand::redo()
 {
+    song()->markForAddition();
     m_ownsAttachment = true;
     m_index = song()->removeAttachment( m_attachment );
 }

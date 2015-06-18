@@ -26,6 +26,7 @@ void SongDatabaseNewSongCommand::redo()
     if (!m_song)
         m_song = new Song(database());
 
+    m_song->markForAddition();
     if (m_row < 0)
     {
         database()->appendSong( m_song );
@@ -42,6 +43,7 @@ void SongDatabaseNewSongCommand::undo()
     // transfer ownership to this
     assert(m_song);
 
+    m_song->unmarkForAddition();
     database()->removeSong( m_song );
     m_ownsSong = true;
 }

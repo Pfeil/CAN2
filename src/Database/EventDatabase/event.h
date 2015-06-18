@@ -30,6 +30,7 @@ public:
 
     bool restoreFromJsonObject(const QJsonObject &json);
     QJsonObject toJsonObject() const;
+    QString filenameBase() const { return "event"; }
 
     static QString typeString(Type type, bool translated = false);
 

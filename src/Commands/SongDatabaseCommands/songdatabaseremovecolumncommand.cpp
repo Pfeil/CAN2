@@ -9,12 +9,14 @@ SongDatabaseRemoveColumnCommand::SongDatabaseRemoveColumnCommand(SongDatabase *s
 
 void SongDatabaseRemoveColumnCommand::undo()
 {
+    database()->markForAddition();
     database()->restoreColumn( m_section, m_label, m_attributes );
     m_attributes.clear();
 }
 
 void SongDatabaseRemoveColumnCommand::redo()
 {
+    database()->markForAddition();
     m_attributes.clear();
     m_label = database()->attributeKeys()[m_section];
     for (Song* s : database()->songs())

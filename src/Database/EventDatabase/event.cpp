@@ -1,15 +1,18 @@
 #include "event.h"
+#include "eventdatabase.h"
+#include "project.h"
 
 const Qt::DateFormat Event::DATE_TIME_FORMAT = Qt::ISODate;
 
 Event::Event( EventDatabase* database, const QDateTime& beginning, const QDateTime& ending, Type type, const QString & label) :
+    Taggable( ),
     m_database( database ),
     m_timeSpan( TimeSpan(beginning, ending)),
     m_type(type),
     m_label(label),
     m_setlist( this )   // destroyed via ~QObject
 {
-
+    setProject( database->project() );
 }
 
 
@@ -120,13 +123,6 @@ QString Event::description() const
         return label();
     }
 }
-
-
-
-
-
-
-
 
 
 

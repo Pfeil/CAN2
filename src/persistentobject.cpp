@@ -3,6 +3,8 @@
 #include <QJsonDocument>
 #include "global.h"
 #include <QDateTime>
+#include "application.h"
+#include "project.h"
 
 PersistentObject::PersistentObject()
 {
@@ -47,15 +49,45 @@ bool PersistentObject::loadFrom(const QString &path)
 
 bool PersistentObject::saveTo(const QString &path) const
 {
-    QFile file(path);
-    if (!file.open(QIODevice::WriteOnly))
-    {
-        WARNING << "Cannot open file " << path << " for writing.";
-        return false;
-    }
+    QByteArray newData;
+    QByteArray oldData;
 
-    QJsonDocument doc(toJsonObject());
-    file.write(doc.toJson());
+    QFile readFile(path);
+    if (readFile.open(QIODevice::ReadOnly))
+    {
+        oldData = readFile.readAll();
+    }
+    else
+    {
+        // file may not exist.
+        oldData = QByteArray();
+    }
+    readFile.close();
+
+    newData = QJsonDocument(toJsonObject()).toJson();
+
+    //TODO tell project that this file shall not be removed and remove all files that did not said this.
+
+    if (newData != oldData)
+    {
+        QFile writeFile(path);
+        if (writeFile.open( QIODevice::WriteOnly ))
+        {
+            qint64 written = writeFile.write( newData );
+            if (written != newData.size())
+            {
+                qWarning() << "cannot write all data to " << path;
+                return false;
+            }
+            writeFile.close();
+            app().project()->addFile( path );
+        }
+        else
+        {
+            qWarning() << "cannot write to " << path;
+            return false;
+        }
+    }
 
     return true;
 }

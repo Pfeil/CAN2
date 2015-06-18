@@ -67,12 +67,6 @@ bool Project::saveToTempDir()
 {
     bool success = true;
 
-    if ( !resetUserData() )
-    {
-        WARNING << "Cannot tidy up temporary directory.";
-        success = false;
-    }
-
     if (!m_eventDatabase->saveTo(makeAbsolute("eventDatabase")))
     {
         WARNING << "Cannot save Event Database.";
@@ -83,6 +77,7 @@ bool Project::saveToTempDir()
         WARNING << "Cannot save Song Database";
         success = false;
     }
+
     setCanClose(true);
     return success;
 }

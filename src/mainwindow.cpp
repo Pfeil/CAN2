@@ -928,7 +928,6 @@ void MainWindow::selectPage(Page page)
     }
 }
 
-
 void MainWindow::createDebugMenu()
 {
 #ifdef QT_DEBUG

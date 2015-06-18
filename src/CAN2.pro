@@ -141,7 +141,8 @@ SOURCES += main.cpp\
     PDFCreator/orphantsetlist.cpp \
     Dialogs/hud.cpp \
     Dialogs/addfilestoindexdialog.cpp \
-    zipped.cpp
+    zipped.cpp \
+    Dialogs/chordpatternviewerscrollarea.cpp
 
 HEADERS  += mainwindow.h \
     project.h \
@@ -253,7 +254,8 @@ HEADERS  += mainwindow.h \
     PDFCreator/orphantsetlist.h \
     Dialogs/hud.h \
     Dialogs/addfilestoindexdialog.h \
-    zipped.h
+    zipped.h \
+    Dialogs/chordpatternviewerscrollarea.h
 
 FORMS    += mainwindow.ui \
     DatabaseView/SongDatabaseView/songtableviewcontainer.ui \

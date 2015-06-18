@@ -43,6 +43,9 @@ private:
     bool m_atEnd = false;
     QTimer* m_playTimer;
 
+    void scrollDown();
+    void scrollUp();
+
 
 private slots:
     void on_buttonZoomOut_clicked();
@@ -62,6 +65,8 @@ private slots:
 protected:
     void resizeEvent(QResizeEvent *e);
     bool eventFilter(QObject *o, QEvent *e);
+    void wheelEvent(QWheelEvent *e);
+    void keyPressEvent(QKeyEvent *e);
 };
 
 

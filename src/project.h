@@ -1,7 +1,6 @@
 #ifndef PROJECT_H
 #define PROJECT_H
 
-#include "zipgit.h"
 #include "Database/SongDatabase/songdatabase.h"
 #include "Database/EventDatabase/eventdatabase.h"
 
@@ -10,6 +9,7 @@
 #include "Database/SongDatabase/songdatabasesortproxy.h"
 #include "Database/EventDatabase/eventdatabasesortproxy.h"
 #include "configurable.h"
+#include "zipped.h"
 
 class Project : public QUndoStack, public Zipped
 {

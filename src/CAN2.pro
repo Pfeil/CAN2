@@ -265,7 +265,6 @@ FORMS    += mainwindow.ui \
     Dialogs/stringdialog.ui \
     AttachmentView/IndexedFileAttachmentView/indexedfileattachmentview.ui \
     AttachmentView/IndexedFileAttachmentView/AudioAttachmentView/audioattachmentview.ui \
-    conflicteditor.ui \
     Dialogs/configurationdialog.ui \
     DatabaseView/EventDatabaseView/eventdatabasewidget.ui \
     Dialogs/datetimedialog.ui \

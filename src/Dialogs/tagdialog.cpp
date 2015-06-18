@@ -15,6 +15,11 @@ TagDialog::TagDialog(const QStringList & tags, QWidget *parent) :
     connect( ui->label, SIGNAL(linkActivated(QString)), this, SLOT(removeTag(QString)) );
     ui->label->setTextInteractionFlags(Qt::TextBrowserInteraction);
     ui->label->setWordWrap(true);
+    connect(ui->comboBox, &QComboBox::currentTextChanged, [this](QString text)
+    {
+        ui->pushButton->setEnabled( !text.isEmpty() );
+    });
+    ui->pushButton->setEnabled( false );
 
     ui->comboBox->setCurrentIndex( -1 );
 }
@@ -41,7 +46,7 @@ void TagDialog::updateTextEdit()
 
 void TagDialog::addTag(const QString &tag)
 {
-    if (!m_tags.contains(tag))
+    if (!tag.isEmpty() && !m_tags.contains(tag))
     {
         m_tags.append( tag );
         updateTextEdit();

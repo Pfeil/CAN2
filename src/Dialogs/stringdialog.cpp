@@ -13,6 +13,8 @@ StringDialog::StringDialog(const QString& title, const QString & text, const QSt
     setWindowTitle( title );
 
     connect( ui->buttonFileDialog, SIGNAL(pressed()), this, SLOT(spawnFileDialog()) );
+
+    ui->lineEdit->selectAll();
 }
 
 StringDialog::~StringDialog()

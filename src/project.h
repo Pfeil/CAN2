@@ -11,7 +11,7 @@
 #include "Database/EventDatabase/eventdatabasesortproxy.h"
 #include "configurable.h"
 
-class Project : public QUndoStack, public GitRepository
+class Project : public QUndoStack, public Zipped
 {
     DECL_CONFIG(Project)
     Q_OBJECT

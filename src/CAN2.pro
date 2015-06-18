@@ -21,11 +21,7 @@ QMAKE_CXXFLAGS += -std=c++0x
 QMAKE_LFLAGS += -static-libgcc
 
 unix {
-#you must have libgit2, poppler, libav, libsoundtouch installed.
-#checkout zipgit, build it and update the path.
-INCLUDEPATH += ../../ZipGit/src/
-LIBS += -L../ZipGit/build-ZipGit-Desktop-Debug/ -lzipgit
-LIBS += -lgit2
+#you must have poppler, libav, libsoundtouch installed.
 LIBS += -L/usr/local/lib -lpoppler-qt5
 LIBS += -lavformat -lavcodec -lavutil -lpthread
 LIBS += -lSoundTouch
@@ -33,8 +29,6 @@ LIBS += -lSoundTouch
 
 win32 {
 INCLUDEPATH += ../../libav-10.6-win32/win32/usr/include/
-INCLUDEPATH += ../../ZipGit/src/
-LIBS += -L../../bin -lzipgit
 LIBS += -L../../lib -lpoppler-qt5
 LIBS += -L../../bin -lavformat -lavcodec -lavutil
 LIBS += -L../../bin -lsoundtouch
@@ -93,7 +87,6 @@ SOURCES += main.cpp\
     Commands/AttachmentCommands/attachmentcommand.cpp \
     Commands/AttachmentCommands/attachmentrenamecommand.cpp \
     Attachments/ChordPatternAttachment/chord.cpp \
-    Dialogs/clonedialog.cpp \
     Commands/AttachmentCommands/chordpatternattachmenttransposecommand.cpp \
     Dialogs/stringdialog.cpp \
     Commands/SongCommands/songduplicateattachmentcommand.cpp \
@@ -101,10 +94,6 @@ SOURCES += main.cpp\
     AttachmentView/IndexedFileAttachmentView/AudioAttachmentView/audioattachmentview.cpp \
     Attachments/AudioAttachment/audioattachment.cpp \
     AttachmentView/chordpatternedit.cpp \
-    conflicteditor.cpp \
-    Dialogs/commitdialog.cpp \
-    identitymanager.cpp \
-    Dialogs/identitydialog.cpp \
     Dialogs/configurationdialog.cpp \
     Dialogs/configurationwidgets.cpp \
     Commands/AttachmentCommands/fileattachmentcommandsethashcommand.cpp \
@@ -151,7 +140,8 @@ SOURCES += main.cpp\
     Dialogs/chordpatternviewer.cpp \
     PDFCreator/orphantsetlist.cpp \
     Dialogs/hud.cpp \
-    Dialogs/addfilestoindexdialog.cpp
+    Dialogs/addfilestoindexdialog.cpp \
+    zipped.cpp
 
 HEADERS  += mainwindow.h \
     project.h \
@@ -202,7 +192,6 @@ HEADERS  += mainwindow.h \
     AttachmentView/attachmentchooser.h \
     Commands/AttachmentCommands/attachmentcommand.h \
     Attachments/ChordPatternAttachment/chord.h \
-    Dialogs/clonedialog.h \
     Commands/AttachmentCommands/chordpatternattachmenttransposecommand.h \
     Dialogs/stringdialog.h \
     Commands/SongCommands/songduplicateattachmentcommand.h \
@@ -210,11 +199,7 @@ HEADERS  += mainwindow.h \
     AttachmentView/IndexedFileAttachmentView/AudioAttachmentView/audioattachmentview.h \
     Attachments/AudioAttachment/audioattachment.h \
     AttachmentView/chordpatternedit.h \
-    conflicteditor.h \
     global.h \
-    Dialogs/commitdialog.h \
-    identitymanager.h \
-    Dialogs/identitydialog.h \
     Dialogs/configurationdialog.h \
     Dialogs/configurationwidgets.h \
     Commands/AttachmentCommands/fileattachmentcommandsethashcommand.h \
@@ -267,7 +252,8 @@ HEADERS  += mainwindow.h \
     Dialogs/chordpatternviewer.h \
     PDFCreator/orphantsetlist.h \
     Dialogs/hud.h \
-    Dialogs/addfilestoindexdialog.h
+    Dialogs/addfilestoindexdialog.h \
+    zipped.h
 
 FORMS    += mainwindow.ui \
     DatabaseView/SongDatabaseView/songtableviewcontainer.ui \
@@ -276,13 +262,10 @@ FORMS    += mainwindow.ui \
     AttachmentView/IndexedFileAttachmentView/pdfattachmentview.ui \
     DatabaseView/SongDatabaseView/songdatabasewidget.ui \
     AttachmentView/attachmentchooser.ui \
-    Dialogs/clonedialog.ui \
     Dialogs/stringdialog.ui \
     AttachmentView/IndexedFileAttachmentView/indexedfileattachmentview.ui \
     AttachmentView/IndexedFileAttachmentView/AudioAttachmentView/audioattachmentview.ui \
     conflicteditor.ui \
-    Dialogs/commitdialog.ui \
-    Dialogs/identitydialog.ui \
     Dialogs/configurationdialog.ui \
     DatabaseView/EventDatabaseView/eventdatabasewidget.ui \
     Dialogs/datetimedialog.ui \

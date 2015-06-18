@@ -11,14 +11,12 @@
 #include "application.h"
 #include "Dialogs/addfilestoindexdialog.h"
 #include "Dialogs/stringdialog.h"
-#include "conflicteditor.h"
-#include "Dialogs/commitdialog.h"
-#include "Dialogs/clonedialog.h"
-#include "Dialogs/identitydialog.h"
 #include "Dialogs/configurationdialog.h"
 #include <QProgressDialog>
 #include <QScrollArea>
 #include <QLabel>
+
+#define HIDE_CLONE_SYNC // because it does not work.
 
 DEFN_CONFIG( MainWindow, "Global" );
 
@@ -40,27 +38,6 @@ CONFIGURABLE_ADD_ITEM( MainWindow,
                        QT_TRANSLATE_NOOP("ConfigurableItem", "ConfigurableItem/MainWindow/Style"),
                        QVariant(),  // is set in MainWindow constructor since ::defaultStyleSheet() is not available in static context.
                        ConfigurableItemOptions::TextEditOptions( QT_TRANSLATE_NOOP( "ConfigurableItem", "Stylesheet") )
-                       );
-CONFIGURABLE_ADD_ITEM( MainWindow,
-                       AskForCommitMessage,
-                       QT_TRANSLATE_NOOP("ConfigurableItem", "Ask for commit message"),
-                       QT_TRANSLATE_NOOP("ConfigurableItem", "ConfigurableItem/MainWindow/AskForCommitMessage"),
-                       QVariant(true),
-                       ConfigurableItemOptions::CheckboxOptions()
-                       );
-CONFIGURABLE_ADD_ITEM( MainWindow,
-                       CommitMessage,
-                       QT_TRANSLATE_NOOP("ConfigurableItem", "Commit message"),
-                       QT_TRANSLATE_NOOP("ConfigurableItem", "ConfigurableItem/MainWindow/CommitMessage"),
-                       QT_TRANSLATE_NOOP("ConfigurableItem", "Synchronizing"),
-                       ConfigurableItemOptions::TextEditOptions( QT_TRANSLATE_NOOP( "ConfigurableItem", "commit message") )
-                       );
-CONFIGURABLE_ADD_ITEM( MainWindow,
-                       AskForSynchronizing,
-                       QT_TRANSLATE_NOOP("ConfigurableItem", "Remind synchronizing"),
-                       QT_TRANSLATE_NOOP("ConfigurableItem", "ConfigurableItem/MainWindow/AskForSynchronizing"),
-                       true,
-                       ConfigurableItemOptions::CheckboxOptions()
                        );
 
 
@@ -178,8 +155,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     loadDefaultProject();
 
-    m_identityManager.restore();
-
     connect( &m_project, SIGNAL(songDatabaseCommandPushed()), this, SLOT(gotoSongView()) );
     connect( &m_project, SIGNAL(eventDatabaseCommandPushed()), this, SLOT(gotoEventView()) );
 
@@ -213,8 +188,6 @@ MainWindow::MainWindow(QWidget *parent) :
         selectPage( EventDatabasePage );
     });
     selectPage( SongDatabasePage );
-
-    askForSync();
 }
 
 MainWindow::~MainWindow()
@@ -222,8 +195,6 @@ MainWindow::~MainWindow()
     QSettings settings;
     settings.setValue( "Geometry", saveGeometry() );
     delete ui;
-    m_identityManager.save();
-
 }
 
 void MainWindow::resizeSplitter()
@@ -411,7 +382,6 @@ bool MainWindow::newProject()
 
 bool MainWindow::canProjectClose()
 {
-    askForSync();
     if (m_project.canClose())
     {
         return true;
@@ -436,6 +406,12 @@ bool MainWindow::canProjectClose()
             return false;
         }
     }
+}
+
+void MainWindow::on_actionSettings_triggered()
+{
+    ConfigurationDialog dialog(this);
+    dialog.exec();
 }
 
 void MainWindow::updateWindowTitle()
@@ -493,9 +469,8 @@ void MainWindow::updateWhichWidgetsAreEnabled()
     Project* cProject = &m_project;
     Song* cSong = currentSong();
     Attachment* cAttachment = currentAttachment();
-    bool cGit = cProject ? cProject->isGitRepository() : false;
 
-    QObjectList attachmentObjects, songObects, projectObjects, gitObjects, alwaysObjects;
+    QObjectList attachmentObjects, songObects, projectObjects, alwaysObjects;
 
 //    projectObjects      << ui->actionNew_Song;
     alwaysObjects       << ui->actionNew_Project;
@@ -514,7 +489,6 @@ void MainWindow::updateWhichWidgetsAreEnabled()
     // ui->actionUndo;
     // ui->actionRedo;
 //    songObects          << ui->actionDelete_Song;
-    gitObjects          << ui->actionSync;
     // ui->actionClone;
     // ui->actionOpen_Terminal_here;
     attachmentObjects   << ui->actionRename_Attachment;
@@ -523,7 +497,6 @@ void MainWindow::updateWhichWidgetsAreEnabled()
     for (QObject* o : projectObjects )      ::setEnabled( o, !!cProject     );
     for (QObject* o : songObects )          ::setEnabled( o, !!cSong        );
     for (QObject* o : attachmentObjects)    ::setEnabled( o, !!cAttachment  );
-    for (QObject* o : gitObjects)           ::setEnabled( o, !!cGit         );
 }
 
 MainWindow::Page MainWindow::currentPage() const
@@ -761,258 +734,6 @@ void MainWindow::on_actionOpen_Terminal_here_triggered()
     QProcess::startDetached( "gnome-terminal", QStringList(), m_project.path() );
 }
 
-void MainWindow::on_actionClone_triggered()
-{
-
-    if (!canProjectClose())
-    {
-        return;
-    }
-
-    QUrl url = config["RecentCloneURL"].toUrl();
-    CloneDialog dialog(m_identityManager, url, this);
-    if (dialog.exec() == QDialog::Rejected)
-    {
-        return;
-    }
-    url = dialog.url();
-    config.set("RecentCloneURL", url);
-
-    if (!url.isValid())
-    {
-        return;
-    }
-
-    m_project.reset();
-    setCurrentPath("");
-
-    QProgressDialog pd( "Task in Progress", "Cancel", 0, -1, this );
-    pd.setWindowModality( Qt::WindowModal );
-
-    m_project.cloneDetached( url.url(), Identity("", "", "", "") );
-
-    QLabel* label = new QLabel(&pd);
-    label->setWordWrap(true);
-    pd.setLabel(label);
-    pd.show();
-
-    while ( !m_project.cloningFinished() )
-    {
-        pd.setValue( (pd.value() + 1) % 100 );
-        label->setText( tr("Cloning.") );
-        qApp->processEvents();
-        QThread::msleep( 10 );
-        if (pd.wasCanceled())
-        {
-            return;
-        }
-    }
-
-
-    if ( !m_project.cloningSucceeded() )
-    {
-        QMessageBox::warning( this,
-                              tr("Cloning failed"),
-                              QString(tr("Failed to clone %1.").arg(url.url())),
-                              QMessageBox::Ok,
-                              QMessageBox::NoButton );
-        newProject();
-    }
-    else if ( !m_project.loadFromTempDir())
-    {
-        QMessageBox::warning( this,
-                              tr("Cannot load project"),
-                              QString(tr("Failed to load cloned project.\n"
-                                         "Make sure you cloned the correct repository and the repository is valid.")),
-                              QMessageBox::Ok,
-                              QMessageBox::NoButton );
-        newProject();
-    }
-
-    updateWindowTitle();
-    updateWhichWidgetsAreEnabled();
-
-}
-
-
-void MainWindow::on_actionSync_triggered()
-{
-    //////////////////////////////////////////////////////////////////////////
-    /// retrieve message and Identity.
-    /// abort if one of them is invalid.
-    QString message;
-    Identity identity;
-
-    if ( config.value("AskForCommitMessage").toBool() )
-    {
-        CommitDialog dialog(&m_identityManager, this);
-        if (dialog.exec() != QDialog::Accepted)
-        {
-            // process aborted
-            return;
-        }
-        else
-        {
-            message = dialog.message();
-            identity = dialog.identity();
-        }
-    }
-    else
-    {
-        identity = m_identityManager.currentIdentity();
-        message = config.value( "CommitMessage" ).toString();
-    }
-
-    if ( !identity.isValid() )
-    {
-        QMessageBox::warning( this,
-                              tr("Sync"),
-                              tr("You must provide a valid identity to sync. Abort.") );
-        return;
-    }
-    else if ( message.isEmpty() )
-    {
-        QMessageBox::warning( this,
-                              tr("Sync"),
-                              tr("Commit message may not be empty. Abort.") );
-        return;
-    }
-
-    QString password = m_identityManager.currentIdentity().password();
-    QString name = m_identityManager.currentIdentity().loginName();
-    if (!name.isEmpty())
-    {
-        if (password.isEmpty())
-        {
-            password = StringDialog::getPassword( QString(tr("Password for %1")).arg(name), "", tr("Password") );
-            if (password.isEmpty())
-            {
-                return;
-            }
-        }
-    }
-    else
-    {
-    }
-
-
-    //////////////////////////////////////////////////////////////////////////
-    /// Set up progress dialog
-    QProgressDialog pd( "Task in Progress", "Cancel", 0, -1, this );
-    pd.setWindowModality( Qt::WindowModal );
-    QLabel* label = new QLabel(&pd);
-    label->setWordWrap(true);
-    pd.setLabel(label);
-    pd.show();
-    label->setText( tr("Syncing.") );
-
-    //////////////////////////////////////////////////////////////////////////
-    /// begin syncing
-    m_project.saveToTempDir();
-
-    // wait until prepare is finished
-    m_project.prepareSyncDetached( message, identity );
-    while ( !m_project.prepareSyncFinished() )
-    {
-        qApp->processEvents();
-        QThread::msleep( 10 );
-        if (pd.wasCanceled())
-        {
-            //TODO ensure that the state is not weird.
-            return;
-        }
-    }
-
-    // resolve conflicts
-    QList<File> files = m_project.conflictingFiles();
-    while (!files.isEmpty())
-    {
-        ConflictEditor editor( files, this );
-        if ( editor.exec() == QDialog::Rejected )
-        {
-            QMessageBox box( this );
-            box.setWindowTitle( tr("Pending conflicts not allowed.") );
-            box.setText( tr("There must not be conficts.") );
-            box.addButton( QMessageBox::Yes );
-            box.addButton( QMessageBox::No );
-            box.addButton( QMessageBox::Abort );
-            box.setButtonText( QMessageBox::Yes, tr("Keep theirs") );
-            box.setButtonText( QMessageBox::No, tr("Keep mine") );
-            switch (box.exec())
-            {
-            case QMessageBox::Yes:
-                editor.resolveAllTheirs();
-                goto resolved;
-            case QMessageBox::No:
-                editor.resolveAllTheirs();
-                goto resolved;
-            case QMessageBox::Abort:
-            default:
-                ;   // next iteration
-            }
-        }
-        files = m_project.conflictingFiles();
-    }
-
-    resolved:
-
-    // wait until polish is finished
-    m_project.polishSyncDetached( identity );
-    while ( !m_project.polishSyncFinished() )
-    {
-        qApp->processEvents();
-        QThread::msleep( 10 );
-        if (pd.wasCanceled())
-        {
-            //TODO ensure that the state is not weird.
-            return;
-        }
-    }
-
-    if (!m_project.loadFromTempDir())
-    {
-        QMessageBox::warning( this,
-                              tr("Failed to load project."),
-                              tr("Cannot open merged project.\n"
-                                 "Probably merging went wrong or the remote version was currupted.\n"
-                                 "Fix the error by hand and commit it over the current version, then clone the fixed repository."),
-                              QMessageBox::Ok,
-                              QMessageBox::NoButton );
-        newProject();
-    }
-    else if ( !m_project.polishSyncSucceeded() || !m_project.prepareSyncSucceeded() )
-    {
-        QMessageBox::information( this,
-                                  tr("Sync"),
-                                  tr("Sync failed.\n"
-                                     "Make sure your username/password is correct and the remote repository is reachable"),
-                                  QMessageBox::Ok,
-                                  QMessageBox::NoButton );
-    }
-    else
-    {
-        QMessageBox::information( this,
-                                  tr("Sync"),
-                                  tr("Sync succeeded"),
-                                  QMessageBox::Ok,
-                                  QMessageBox::NoButton );
-        m_project.setIsSynchronized();
-    }
-
-}
-
-void MainWindow::on_actionIdentites_triggered()
-{
-    IdentityDialog dialog( &m_identityManager, this );
-    dialog.exec();
-}
-
-void MainWindow::on_actionSettings_triggered()
-{
-    ConfigurationDialog dialog(this);
-    dialog.exec();
-}
-
 void MainWindow::on_action_Index_Info_triggered()
 {
     QMessageBox::information( this,
@@ -1207,35 +928,6 @@ void MainWindow::selectPage(Page page)
     }
 }
 
-void MainWindow::askForSync()
-{
-    if (!config["AskForSynchronizing"].toBool())
-    {
-        return;
-    }
-    if (!m_project.isGitRepository())
-    {
-        return;
-    }
-
-    if (m_project.isSynchronized())
-    {
-        return;
-    }
-
-    if ( QMessageBox::Yes == QMessageBox::question(    this,
-                                                       tr("Synchronize?"),
-                                                       tr("The project may not be synchronized with the remote.\n"
-                                                          "Do you want to synchronize them now?\n"
-                                                          "You can always do this later, but it is recommended to do it now."),
-                                                       QMessageBox::Yes | QMessageBox::No,
-                                                       QMessageBox::Yes
-                                                    )
-         )
-    {
-        on_actionSync_triggered();
-    }
-}
 
 void MainWindow::createDebugMenu()
 {

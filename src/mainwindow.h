@@ -4,7 +4,6 @@
 #include <QMainWindow>
 #include "project.h"
 #include "configurable.h"
-#include "identitymanager.h"
 #include "DatabaseView/SongDatabaseView/songtableview.h"
 
 
@@ -45,7 +44,6 @@ private:
     Ui::MainWindow *ui;
 
     Project m_project;
-    IdentityManager m_identityManager;
 
     // saving and loading related stuff
     bool canProjectClose();
@@ -83,9 +81,6 @@ private slots:
     void on_actionDuplicate_Attachment_triggered();
     void updateWhichWidgetsAreEnabled();
     void on_actionOpen_Terminal_here_triggered();
-    void on_actionClone_triggered();
-    void on_actionSync_triggered();
-    void on_actionIdentites_triggered();
     void on_actionSettings_triggered();
     void on_action_Index_Info_triggered();
 
@@ -128,9 +123,6 @@ private:
     QAction* m_actionDelete_Event;
     QAction* m_actionCopy_Event;
     QAction* m_actionPaste_Event;
-
-    void askForSync();
-
 };
 
 #endif // MAINWINDOW_H

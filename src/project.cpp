@@ -5,7 +5,7 @@
 DEFN_CONFIG(Project, "Project");
 
 Project::Project() :
-    GitRepository("can"),
+    Zipped("can"),
     m_songDatabase( new SongDatabase(this) ),
     m_eventDatabase( new EventDatabase(this) ),
     m_songDatabaseProxy( new SongDatabaseSortProxy(this) ),

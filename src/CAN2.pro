@@ -145,7 +145,8 @@ SOURCES += main.cpp\
     Dialogs/chordpatternviewerscrollarea.cpp \
     Attachments/ChordPatternAttachment/chordpatternproxyattachment.cpp \
     AttachmentView/chordpatternproxyattachmentview.cpp \
-    Attachments/ChordPatternAttachment/abstractchordpatternattachment.cpp
+    Attachments/ChordPatternAttachment/abstractchordpatternattachment.cpp \
+    DatabaseView/EventDatabaseView/eventtableviewdelegates.cpp
 
 HEADERS  += mainwindow.h \
     project.h \
@@ -261,7 +262,8 @@ HEADERS  += mainwindow.h \
     Dialogs/chordpatternviewerscrollarea.h \
     Attachments/ChordPatternAttachment/chordpatternproxyattachment.h \
     AttachmentView/chordpatternproxyattachmentview.h \
-    Attachments/ChordPatternAttachment/abstractchordpatternattachment.h
+    Attachments/ChordPatternAttachment/abstractchordpatternattachment.h \
+    DatabaseView/EventDatabaseView/eventtableviewdelegates.h
 
 FORMS    += mainwindow.ui \
     DatabaseView/SongDatabaseView/songtableviewcontainer.ui \

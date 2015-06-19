@@ -224,7 +224,7 @@ void MainWindow::createAttachmentActions()
     for (const QString & classname : Creatable::classnamesInCategory("Attachment"))
     {
         QAction* action = new QAction( this );
-        action->setText( QString(tr("New %1")).arg( Creatable::name(classname) ) );
+        action->setText( QString(tr("New %1")).arg( Creatable::translatedName(classname) ) );
 
         if (classname == "PDFAttachment")
         {

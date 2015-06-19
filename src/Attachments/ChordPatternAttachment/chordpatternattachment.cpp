@@ -11,7 +11,7 @@ DEFN_CONFIG( ChordPatternAttachment, tr("ChordPatternAttachment") )
 
 CONFIGURABLE_ADD_ITEM( ChordPatternAttachment,
                        EnharmonicPolicy,
-                       QT_TRANSLATE_NOOP("ConfigurableItem", "Enharminics: "),
+                       QT_TRANSLATE_NOOP("ConfigurableItem", "Enharmonic ambiguation: "),
                        QT_TRANSLATE_NOOP("ConfigurableItem", "ConfigurableItem/ChordPatternAttachment/EnharmonicPolicy"),
                        1,
                        ConfigurableItemOptions::ComboBoxOptions( QStringList() << QT_TRANSLATE_NOOP("ConfigurableItem", "Always Sharp")

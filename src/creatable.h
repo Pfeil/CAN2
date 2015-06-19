@@ -33,6 +33,7 @@ public:
     static QString category(const QString & classname);
     static QStringList classnamesInCategory( const QString & category );
     static QString name(const QString &classname );
+    static QString translatedName( const QString& classname );
 
 private:
     // pointers to hashmaps since they are required in a static

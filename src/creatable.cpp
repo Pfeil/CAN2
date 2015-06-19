@@ -1,4 +1,5 @@
 #include "creatable.h"
+#include "application.h"
 
 QHash<QString, Creatable* (*)()>*    Creatable::m_constructorMap = NULL;
 QHash<QString, QString>*             Creatable::m_categoryMap = NULL;
@@ -41,4 +42,9 @@ QStringList Creatable::classnamesInCategory(const QString &category)
 QString Creatable::name(const QString& classname)
 {
     return (*m_nameMap)[classname];
+}
+
+QString Creatable::translatedName(const QString &classname)
+{
+    return app().translate( "Creatable", name(classname).toStdString().c_str() );
 }

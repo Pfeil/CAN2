@@ -240,7 +240,7 @@ void MainWindow::createAttachmentActions()
         }
         else if (classname == "ChordPatternProxyAttachment")
         {
-            action->setIcon( QIcon("") );
+            action->setIcon( QIcon(":/icons/icons/link67.png") );
         }
         else
         {

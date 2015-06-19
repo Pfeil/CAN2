@@ -258,6 +258,20 @@ void ChordPatternViewer::keyPressEvent(QKeyEvent *e)
     {
         scrollDown();
     }
+    else if (e->key() == Qt::Key_Plus)
+    {
+        if (!e->isAutoRepeat())
+        {
+            on_buttonZoomIn_clicked();
+        }
+    }
+    else if (e->key() == Qt::Key_Minus)
+    {
+        if (!e->isAutoRepeat())
+        {
+            on_buttonZoomOut_clicked();
+        }
+    }
 }
 
 

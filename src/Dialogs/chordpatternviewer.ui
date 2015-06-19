@@ -120,35 +120,6 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="buttonZoomOut">
-       <property name="minimumSize">
-        <size>
-         <width>32</width>
-         <height>32</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>32</width>
-         <height>32</height>
-        </size>
-       </property>
-       <property name="focusPolicy">
-        <enum>Qt::NoFocus</enum>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="../ressources.qrc">
-         <normaloff>:/icons/icons/minus38.png</normaloff>:/icons/icons/minus38.png</iconset>
-       </property>
-       <property name="autoRepeat">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QPushButton" name="buttonZoomIn">
        <property name="minimumSize">
         <size>
@@ -170,7 +141,36 @@
        </property>
        <property name="icon">
         <iconset resource="../ressources.qrc">
-         <normaloff>:/icons/icons/plus44.png</normaloff>:/icons/icons/plus44.png</iconset>
+         <normaloff>:/icons/icons/plus47.png</normaloff>:/icons/icons/plus47.png</iconset>
+       </property>
+       <property name="autoRepeat">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="buttonZoomOut">
+       <property name="minimumSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../ressources.qrc">
+         <normaloff>:/icons/icons/less2.png</normaloff>:/icons/icons/less2.png</iconset>
        </property>
        <property name="autoRepeat">
         <bool>true</bool>

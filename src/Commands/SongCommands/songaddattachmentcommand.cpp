@@ -5,7 +5,6 @@ SongAddAttachmentCommand::SongAddAttachmentCommand(Song *song, const QString &cl
     m_classname(classname)
 {
     assert( Creatable::category(m_classname) == "Attachment" );
-    setText( QString(CommandTranslator::tr("Add song %1").arg( song->description())) );
 }
 
 SongAddAttachmentCommand::~SongAddAttachmentCommand()
@@ -26,6 +25,7 @@ void SongAddAttachmentCommand::redo()
         m_attachment->makeNameUnique();
     }
 
+    setText( QString(CommandTranslator::tr("Add attachment %1").arg( m_attachment->description())) );
     song()->addAttachment( m_attachment );
     m_ownsAttachment = false;
 }

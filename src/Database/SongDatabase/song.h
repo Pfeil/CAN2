@@ -86,9 +86,9 @@ public:
 
 
 signals:
-    void attachmentAdded(int i);
-    void attachmentRemoved(int i);
-    void attachmentRenamed(int i, QString);
+    void attachmentAdded(int);
+    void attachmentRemoved(int);
+    void attachmentRenamed(QString);
 
 };
 

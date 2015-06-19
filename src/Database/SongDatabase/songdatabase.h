@@ -175,7 +175,7 @@ public:
 signals:
     void attachmentAdded(int);
     void attachmentRemoved(int);
-    void attachmentRenamed(int, QString);
+    void attachmentRenamed(QString);
     void songAdded(int, Song*);
     void songRemoved(int);
 

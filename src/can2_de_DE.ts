@@ -2,17 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="de_DE">
 <context>
-    <name>AddFileIndexSourceDialog</name>
-    <message>
-        <source>all files</source>
-        <translation type="vanished">Alle Dateien</translation>
-    </message>
-    <message>
-        <source>&lt; No files &gt;</source>
-        <translation type="vanished">&lt; Keine Dataien &gt;</translation>
-    </message>
-</context>
-<context>
     <name>AddFilesToIndexDialog</name>
     <message>
         <location filename="Dialogs/addfilestoindexdialog.ui" line="14"/>
@@ -51,10 +40,6 @@
         <location filename="AttachmentView/attachmentchooser.ui" line="19"/>
         <source>Choose an attachment.</source>
         <translation>Wähle Anlage.</translation>
-    </message>
-    <message>
-        <source>Edit tags of the current attachment.</source>
-        <translation type="vanished">Bearbeite die Tags der aktuellen Anlage.</translation>
     </message>
     <message>
         <location filename="AttachmentView/attachmentchooser.cpp" line="24"/>
@@ -170,21 +155,6 @@
     </message>
 </context>
 <context>
-    <name>ChordPatternAttachmentView</name>
-    <message>
-        <source>Transpose up</source>
-        <translation type="vanished">Nach oben transponieren</translation>
-    </message>
-    <message>
-        <source>Transpose down</source>
-        <translation type="vanished">Nach unten transponieren</translation>
-    </message>
-    <message>
-        <source>Show in viewer</source>
-        <translation type="vanished">In Viewer anzeigen</translation>
-    </message>
-</context>
-<context>
     <name>ChordPatternProxyAttachment</name>
     <message>
         <location filename="Attachments/ChordPatternAttachment/chordpatternproxyattachment.cpp" line="10"/>
@@ -224,29 +194,6 @@ Do you want to keep it?</source>
     </message>
 </context>
 <context>
-    <name>CloneDialog</name>
-    <message>
-        <source>Clone Repository</source>
-        <translation type="vanished">Repository klonen</translation>
-    </message>
-    <message>
-        <source>&amp;Path:</source>
-        <translation type="vanished">&amp;Pfad:</translation>
-    </message>
-    <message>
-        <source>Identity:</source>
-        <translation type="vanished">Identität:</translation>
-    </message>
-    <message>
-        <source>Url of the source repository.</source>
-        <translation type="vanished">URL des Repositories.</translation>
-    </message>
-    <message>
-        <source>URL</source>
-        <translation type="vanished">URL</translation>
-    </message>
-</context>
-<context>
     <name>CommandTranslator</name>
     <message>
         <location filename="Commands/AttachmentCommands/AudioAttachmentCommands/deletesectioncommand.cpp" line="7"/>
@@ -256,7 +203,7 @@ Do you want to keep it?</source>
     <message>
         <location filename="Commands/AttachmentCommands/AudioAttachmentCommands/editsectioncommand.cpp" line="10"/>
         <source>Edit section %1 -&gt; %2</source>
-        <translation>Section editieren %1 -&gt; %2</translation>
+        <translation>Section editieren [%1 -&gt; %2]</translation>
     </message>
     <message>
         <location filename="Commands/AttachmentCommands/AudioAttachmentCommands/insertsectioncommand.cpp" line="9"/>
@@ -266,27 +213,27 @@ Do you want to keep it?</source>
     <message>
         <location filename="Commands/AttachmentCommands/attachmentrenamecommand.cpp" line="9"/>
         <source>Rename attachment %1 -&gt; %2</source>
-        <translation>Anhang umbennenen %1 -&gt; %2</translation>
+        <translation>Anhang umbennenen &apos;%1&apos; -&gt; &apos;%2&apos;</translation>
     </message>
     <message>
         <location filename="Commands/AttachmentCommands/chordpatternattachmenteditpatterncommand.cpp" line="54"/>
         <source>Edit chord pattern %1 -&gt; %2</source>
-        <translation>Akkord schema ändern %1 -&gt; %2</translation>
+        <translation>Akkord schema ändern &apos;%1&apos; -&gt; &apos;%2&apos;</translation>
     </message>
     <message>
-        <location filename="Commands/AttachmentCommands/chordpatternattachmenttransposecommand.cpp" line="7"/>
+        <location filename="Commands/AttachmentCommands/abstractchordpatternattachmenttransposecommand.cpp" line="7"/>
         <source>Transpose chord pattern %1</source>
         <translation>Akkord Schema transponieren (%1)</translation>
     </message>
     <message>
         <location filename="Commands/AttachmentCommands/fileattachmentcommandsethashcommand.cpp" line="13"/>
         <source>Set file %1 -&gt; %2</source>
-        <translation>Datei ändern %1 -&gt; %2</translation>
+        <translation>Datei ändern &apos;%1&apos; -&gt; &apos;%2&apos;</translation>
     </message>
     <message>
         <location filename="Commands/EventDatabaseCommands/eventdatabaseediteventcommand.cpp" line="13"/>
         <source>Edit event %1 -&gt; %2</source>
-        <translation>Event ändern %1 -&gt; %2</translation>
+        <translation>Event ändern &apos;%1&apos; -&gt; &apos;%2&apos;</translation>
     </message>
     <message>
         <location filename="Commands/EventDatabaseCommands/eventdatabasemoveeventcommand.cpp" line="8"/>
@@ -301,22 +248,22 @@ Do you want to keep it?</source>
     <message>
         <location filename="Commands/EventDatabaseCommands/eventdatabaseremoveeventcommand.cpp" line="9"/>
         <source>Delete event %1</source>
-        <translation>Event löschen %1</translation>
+        <translation>Event &apos;%1&apos;löschen</translation>
     </message>
     <message>
         <location filename="Commands/SetlistCommands/setlistadditemcommand.cpp" line="7"/>
         <source>Add item to setlist %1</source>
-        <translation>Element zu Setlist hinzufügen (%1)</translation>
+        <translation>Element &apos;%1&apos; zu Setlist hinzufügen</translation>
     </message>
     <message>
         <location filename="Commands/SetlistCommands/setlisteditdatacommand.cpp" line="10"/>
         <source>Edit setlist %1 -&gt; %2</source>
-        <translation>Setlist bearbeiten %1 -&gt; %2</translation>
+        <translation>Setlist bearbeiten &apos;%1&apos; -&gt; &apos;%2&apos;</translation>
     </message>
     <message>
         <location filename="Commands/SetlistCommands/setlistinsertitemcommand.cpp" line="8"/>
         <source>Insert item to setlist %1</source>
-        <translation>Element in Setlist einfügen %1</translation>
+        <translation>Element &apos;%1&apos; in Setlist einfügen</translation>
     </message>
     <message>
         <location filename="Commands/SetlistCommands/setlistmoverowscommand.cpp" line="8"/>
@@ -326,27 +273,22 @@ Do you want to keep it?</source>
     <message>
         <location filename="Commands/SetlistCommands/setlistremoveitemcommand.cpp" line="7"/>
         <source>Remove item from setlist %1</source>
-        <translation>Element aus setlist löschen %1</translation>
-    </message>
-    <message>
-        <location filename="Commands/SongCommands/songaddattachmentcommand.cpp" line="8"/>
-        <source>Add song %1</source>
-        <translation>Song hinzufügen %1</translation>
+        <translation>Element &apos;%1&apos; aus setlist löschen</translation>
     </message>
     <message>
         <location filename="Commands/SongCommands/songduplicateattachmentcommand.cpp" line="8"/>
         <source>Duplicate attachment %1</source>
-        <translation>Anhang duplizieren (%1)</translation>
+        <translation>Anhang &apos;%1&apos; duplizieren</translation>
     </message>
     <message>
         <location filename="Commands/SongCommands/songremoveattachmentcommand.cpp" line="8"/>
         <source>Remove attachment %1</source>
-        <translation>Anhang entfernen (%1)</translation>
+        <translation>Anhang &apos;%1&apos; entfernen</translation>
     </message>
     <message>
         <location filename="Commands/SongDatabaseCommands/songdatabaseeditsongcommand.cpp" line="13"/>
         <source>Edit song %1 -&gt; %2</source>
-        <translation>Song editieren %1 -&gt; %2</translation>
+        <translation>Song editieren &apos;%1&apos; -&gt; &apos;%2&apos;</translation>
     </message>
     <message>
         <location filename="Commands/SongDatabaseCommands/songdatabasemovesongcommand.cpp" line="8"/>
@@ -356,7 +298,7 @@ Do you want to keep it?</source>
     <message>
         <location filename="Commands/SongDatabaseCommands/songdatabasenewattributecommand.cpp" line="7"/>
         <source>New attribute %1</source>
-        <translation>Neues Attribut (%1)</translation>
+        <translation>Neues Attribut &apos;%1&apos;</translation>
     </message>
     <message>
         <location filename="Commands/SongDatabaseCommands/songdatabasenewsongcommand.cpp" line="14"/>
@@ -366,22 +308,22 @@ Do you want to keep it?</source>
     <message>
         <location filename="Commands/SongDatabaseCommands/songdatabaseremovecolumncommand.cpp" line="7"/>
         <source>Remove column %1</source>
-        <translation>Spalte entfernen (%1)</translation>
+        <translation>Spalte &apos;%1&apos; entfernen</translation>
     </message>
     <message>
         <location filename="Commands/SongDatabaseCommands/songdatabaseremovesongcommand.cpp" line="9"/>
         <source>Delete song %1</source>
-        <translation>Song löschen (%1)</translation>
+        <translation>Song &apos;%1&apos; löschen</translation>
     </message>
     <message>
         <location filename="Commands/SongDatabaseCommands/songdatabaserenameheadercommand.cpp" line="16"/>
         <source>Rename attribute %1 -&gt; %2</source>
-        <translation>Attribut umbenennen (%1 -&gt; %2)</translation>
+        <translation>Attribut umbenennen &apos;%1&apos; -&gt; &apos;%2&apos;</translation>
     </message>
     <message>
         <location filename="Commands/SongDatabaseCommands/songdatabasetoggleattributevisibility.cpp" line="9"/>
         <source>Make %1 %2</source>
-        <translation>Mache %1 %2</translation>
+        <translation>Mache &apos;%1&apos; %2</translation>
     </message>
     <message>
         <location filename="Commands/SongDatabaseCommands/songdatabasetoggleattributevisibility.cpp" line="11"/>
@@ -393,37 +335,10 @@ Do you want to keep it?</source>
         <source>invisible</source>
         <translation>unsichtbar</translation>
     </message>
-</context>
-<context>
-    <name>CommitDialog</name>
     <message>
-        <source>Commit Changes</source>
-        <translation type="vanished">Änderungen ins Repository übertragen</translation>
-    </message>
-    <message>
-        <source>&amp;Comment:</source>
-        <translation type="vanished">&amp;Kommentar:</translation>
-    </message>
-    <message>
-        <source>Comment of the commit.</source>
-        <translation type="vanished">Kommentar (Zusammenfassung der Änderungen).</translation>
-    </message>
-    <message>
-        <source>&amp;Identity:</source>
-        <oldsource>Identity:</oldsource>
-        <translation type="vanished">&amp;Identität:</translation>
-    </message>
-    <message>
-        <source>Identity to commit.</source>
-        <translation type="vanished">Identität die für die Änderungen verantwortlich ist.</translation>
-    </message>
-    <message>
-        <source>Edit identities ...</source>
-        <translation type="vanished">Identitäten bearbeiten ...</translation>
-    </message>
-    <message>
-        <source>Ok is enbled when a valid identity is choosen and comment is not empty.</source>
-        <translation type="vanished">Ok wird nur aktiviert wenn weder Kommentar und Identität nicht leer sind.</translation>
+        <location filename="Commands/SongCommands/songaddattachmentcommand.cpp" line="28"/>
+        <source>Add attachment %1</source>
+        <translation>Anlage &apos;%1&apos; hinzufügen</translation>
     </message>
 </context>
 <context>
@@ -483,10 +398,6 @@ Dabei wird {EventTitle} z.B. durch den Namen des Events ersetzt, oder {Begin} du
         <translation>Song Titel</translation>
     </message>
     <message>
-        <source>ConfigurableItem/PDFCreator/SongTitle</source>
-        <translation type="vanished">Titel des Songs zeichnen</translation>
-    </message>
-    <message>
         <location filename="PDFCreator/pdfcreatorconfig.h" line="77"/>
         <source>ConfigurableItem/PDFCreator/SongTitlePattern</source>
         <translation>Muster für den Song titel.
@@ -496,22 +407,6 @@ Dabei wird {EventTitle} z.B. durch den Namen des Events ersetzt, oder {Begin} du
         <location filename="PDFCreator/pdfcreatorconfig.h" line="78"/>
         <source>{Title} -- {Artist}</source>
         <translation>{Titel} -- {Interpret}</translation>
-    </message>
-    <message>
-        <source>Line spacing</source>
-        <translation type="vanished">Zeilenabstand</translation>
-    </message>
-    <message>
-        <source>ConfigurableItem/PDFCreator/LineSpacing</source>
-        <translation type="vanished">Zeilenabstand nach einer normalen Zeilen</translation>
-    </message>
-    <message>
-        <source>Chord Line spacing</source>
-        <translation type="vanished">Zeilenabstand in Akkordzeile</translation>
-    </message>
-    <message>
-        <source>ConfigurableItem/PDFCreator/ChordLineSpacing</source>
-        <translation type="vanished">Zeilen Abstand nach einer Akkord Zeile </translation>
     </message>
     <message>
         <location filename="PDFCreator/pdfcreatorconfig.h" line="86"/>
@@ -537,10 +432,6 @@ Dabei wird {EventTitle} z.B. durch den Namen des Events ersetzt, oder {Begin} du
         <location filename="PDFCreator/pdfcreatorconfig.h" line="91"/>
         <source>A2</source>
         <translation>A2</translation>
-    </message>
-    <message>
-        <source>A3</source>
-        <translation type="vanished">A3</translation>
     </message>
     <message>
         <location filename="PDFCreator/pdfcreatorconfig.h" line="93"/>
@@ -773,39 +664,6 @@ Dabei wird {EventTitle} z.B. durch den Namen des Events ersetzt, oder {Begin} du
         <translation>Formatvorlage</translation>
     </message>
     <message>
-        <source>Ask for commit message</source>
-        <translation type="vanished">Nach Kommentar beim
-Synchronisieren fragen</translation>
-    </message>
-    <message>
-        <source>ConfigurableItem/MainWindow/AskForCommitMessage</source>
-        <translation type="vanished">Beim Synchronisieren nach einem Kommentar fragen (empfohlen).</translation>
-    </message>
-    <message>
-        <source>Commit message</source>
-        <translation type="vanished">Kommentar</translation>
-    </message>
-    <message>
-        <source>ConfigurableItem/MainWindow/CommitMessage</source>
-        <translation type="vanished">Standard Kommentar beim Synchronisieren</translation>
-    </message>
-    <message>
-        <source>Synchronizing</source>
-        <translation type="vanished">Synchronisiere</translation>
-    </message>
-    <message>
-        <source>commit message</source>
-        <translation type="vanished">Kommentar</translation>
-    </message>
-    <message>
-        <source>Remind synchronizing</source>
-        <translation type="vanished">Erinnere mich ans Synchronisieren</translation>
-    </message>
-    <message>
-        <source>ConfigurableItem/MainWindow/AskForSynchronizing</source>
-        <translation type="vanished">Fragt beim Schließen und Öffnen, ob synchronisiert werden soll.</translation>
-    </message>
-    <message>
         <location filename="Attachments/ChordPatternAttachment/chordpatternattachment.cpp" line="14"/>
         <source>Enharmonic ambiguation: </source>
         <oldsource>Enharminics: </oldsource>
@@ -871,49 +729,6 @@ Synchronisieren fragen</translation>
         <location filename="Dialogs/configurationdialog.cpp" line="41"/>
         <source>Reset value to default.</source>
         <translation>Auf Standardwert zurücksetzen.</translation>
-    </message>
-</context>
-<context>
-    <name>ConflictEditor</name>
-    <message>
-        <source>Conflicts</source>
-        <translation type="vanished">Konflikte</translation>
-    </message>
-    <message>
-        <source>List of all conflicted files.</source>
-        <translation type="vanished">Liste aller Dateien mit Konflikten.</translation>
-    </message>
-    <message>
-        <source>Local version.</source>
-        <translation type="vanished">Meine Version.</translation>
-    </message>
-    <message>
-        <source>Keep local version and overwrite remote version.</source>
-        <translation type="vanished">Behalte meine Version und überschreibe andere.</translation>
-    </message>
-    <message>
-        <source>keep &amp;local</source>
-        <translation type="vanished">Behalte &amp;meine Version</translation>
-    </message>
-    <message>
-        <source>Remote version.</source>
-        <translation type="vanished">Deren Version.</translation>
-    </message>
-    <message>
-        <source>Keep remote version and overwrite local version.</source>
-        <translation type="vanished">Behalte deren Version und überschreibe meine.</translation>
-    </message>
-    <message>
-        <source>keep &amp;remote</source>
-        <translation type="vanished">Behalte &amp;deren Version</translation>
-    </message>
-    <message>
-        <source>&amp;Ok</source>
-        <translation type="vanished">&amp;Ok</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="vanished">&amp;Abbrechen</translation>
     </message>
 </context>
 <context>
@@ -1006,7 +821,7 @@ Synchronisieren fragen</translation>
 <context>
     <name>EventTableView</name>
     <message>
-        <location filename="DatabaseView/EventDatabaseView/eventtableview.cpp" line="260"/>
+        <location filename="DatabaseView/EventDatabaseView/eventtableview.cpp" line="157"/>
         <source>Paste events</source>
         <translation>Events einfügen</translation>
     </message>
@@ -1027,57 +842,6 @@ Synchronisieren fragen</translation>
         <location filename="filterwidget.cpp" line="14"/>
         <source>Filter</source>
         <translation>Filter</translation>
-    </message>
-</context>
-<context>
-    <name>IdentityDialog</name>
-    <message>
-        <source>Identities</source>
-        <translation type="vanished">Identitäten</translation>
-    </message>
-    <message>
-        <source>Storded identities.</source>
-        <translation type="vanished">Gespeicherte Identitäten.</translation>
-    </message>
-    <message>
-        <source>Add new identity.</source>
-        <translation type="vanished">Neue Identität hinzufügen.</translation>
-    </message>
-    <message>
-        <source>Remove this identity.</source>
-        <translation type="vanished">Diese Identität löschen.</translation>
-    </message>
-    <message>
-        <source>&amp;Name:</source>
-        <translation type="vanished">&amp;Name:</translation>
-    </message>
-    <message>
-        <source>Name.</source>
-        <translation type="vanished">Name.</translation>
-    </message>
-    <message>
-        <source>&amp;Email:</source>
-        <translation type="vanished">&amp;E-Mail:</translation>
-    </message>
-    <message>
-        <source>Email for distinct identification.</source>
-        <translation type="vanished">E-Mail für eindeutige Identifikation.</translation>
-    </message>
-    <message>
-        <source>&amp;Login name</source>
-        <translation type="vanished">&amp;Benutzername</translation>
-    </message>
-    <message>
-        <source>Username for login.</source>
-        <translation type="vanished">Benutzername zum einloggen.</translation>
-    </message>
-    <message>
-        <source>&amp;Password (will be stored in plain text)</source>
-        <translation type="vanished">&amp;Passwort (wird im Klartext gespeichert)</translation>
-    </message>
-    <message>
-        <source>Password for login.</source>
-        <translation type="vanished">Passwort zum einloggen.</translation>
     </message>
 </context>
 <context>
@@ -1208,10 +972,6 @@ Du musst die Datei zuerst zum Index hinzufügen bevor Du sie benutzen kannst.</t
         <location filename="mainwindow.ui" line="227"/>
         <source>&amp;Edit</source>
         <translation>&amp;Bearbeiten</translation>
-    </message>
-    <message>
-        <source>Debug</source>
-        <translation type="vanished">[Debug]</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="235"/>
@@ -1392,11 +1152,7 @@ Du musst die Datei zuerst zum Index hinzufügen bevor Du sie benutzen kannst.</t
         <translation>Anlage umbenennen ...</translation>
     </message>
     <message>
-        <source>&amp;Export all songs</source>
-        <translation type="vanished">&amp;Exportiere alle Songs</translation>
-    </message>
-    <message>
-        <location filename="mainwindow.cpp" line="672"/>
+        <location filename="mainwindow.cpp" line="670"/>
         <source>Rename Attachment</source>
         <translation>Anlage umbennen</translation>
     </message>
@@ -1446,282 +1202,193 @@ Du musst die Datei zuerst zum Index hinzufügen bevor Du sie benutzen kannst.</t
         <translation>Einstellungen.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="163"/>
+        <location filename="mainwindow.cpp" line="164"/>
         <source>&amp;New Song</source>
         <translation>&amp;Neuer Song</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="163"/>
+        <location filename="mainwindow.cpp" line="164"/>
         <source>Add a new song.</source>
         <translation>Neuen Song hinzufügen.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="164"/>
+        <location filename="mainwindow.cpp" line="165"/>
         <source>&amp;Remove Song</source>
         <translation>Song &amp;löschen</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="164"/>
+        <location filename="mainwindow.cpp" line="165"/>
         <source>Remove selected song.</source>
         <translation>Lösche ausgewählten Song.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="165"/>
+        <location filename="mainwindow.cpp" line="166"/>
         <source>&amp;Copy Song</source>
         <translation>Song &amp;kopieren</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="165"/>
+        <location filename="mainwindow.cpp" line="166"/>
         <source>Copy selected song.</source>
         <translation>Ausgewählten Song kopieren.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="166"/>
+        <location filename="mainwindow.cpp" line="167"/>
         <source>&amp;Paste Song</source>
         <translation>Song &amp;einfügen</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="166"/>
+        <location filename="mainwindow.cpp" line="167"/>
         <source>Paste song.</source>
         <translation>Song einfügen.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="168"/>
+        <location filename="mainwindow.cpp" line="169"/>
         <source>&amp;New Event</source>
         <translation>&amp;Neues Event</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="168"/>
+        <location filename="mainwindow.cpp" line="169"/>
         <source>Add a new event.</source>
         <translation>Neues Event hinzufügen.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="169"/>
+        <location filename="mainwindow.cpp" line="170"/>
         <source>&amp;Remove Event</source>
         <translation>Event &amp;Löschen</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="169"/>
+        <location filename="mainwindow.cpp" line="170"/>
         <source>Remove selected event.</source>
         <translation>Ausgewähltes Event löschen.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="170"/>
+        <location filename="mainwindow.cpp" line="171"/>
         <source>&amp;Copy Event</source>
         <translation>Event &amp;Kopieren</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="170"/>
+        <location filename="mainwindow.cpp" line="171"/>
         <source>Copy selected event.</source>
         <translation>Kopiere selektiertes Event.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="171"/>
+        <location filename="mainwindow.cpp" line="172"/>
         <source>&amp;Paste Event</source>
         <translation>Event &amp;einfügen</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="171"/>
+        <location filename="mainwindow.cpp" line="172"/>
         <source>Paste event.</source>
         <translation>Event einfügen.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="227"/>
+        <location filename="mainwindow.cpp" line="228"/>
         <source>New %1</source>
         <translation>Neues %1</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="303"/>
+        <location filename="mainwindow.cpp" line="304"/>
         <source>Unnamed</source>
         <translation>Unbenannt</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="959"/>
+        <location filename="mainwindow.cpp" line="964"/>
         <source>Save project as ...</source>
         <translation>Projekt speicher unter ...</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="960"/>
+        <location filename="mainwindow.cpp" line="965"/>
         <source>Archive project as ...</source>
         <translation>Archiviere Projekt unter ...</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1020"/>
+        <location filename="mainwindow.cpp" line="1025"/>
         <source>Save project ...</source>
         <translation>Projekt speichern ...</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1050"/>
+        <location filename="mainwindow.cpp" line="1055"/>
         <source>Save archive ...</source>
         <translation>Projekt archivieren ...</translation>
     </message>
     <message>
-        <source>Save As ...</source>
-        <translation type="vanished">Speichern unter ...</translation>
-    </message>
-    <message>
-        <location filename="mainwindow.cpp" line="361"/>
+        <location filename="mainwindow.cpp" line="362"/>
         <source>Really close %1</source>
         <translation>%1 wirklich schließen</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="362"/>
+        <location filename="mainwindow.cpp" line="363"/>
         <source>There are unsaved changes.</source>
         <translation>Es gibt ungespeicherte Änderungen.</translation>
     </message>
     <message>
-        <source>Open ...</source>
-        <translation type="vanished">Öffnen ...</translation>
-    </message>
-    <message>
-        <location filename="mainwindow.cpp" line="610"/>
+        <location filename="mainwindow.cpp" line="611"/>
         <source>Song cannot be removed</source>
         <translation>Song kann nicht entfernt werden</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="611"/>
+        <location filename="mainwindow.cpp" line="612"/>
         <source>This song is currently in use and can thus not be removed.</source>
         <translation>Diese Song wird momentan benutzt und kann deshalb nicht entfernt werden.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="672"/>
+        <location filename="mainwindow.cpp" line="670"/>
         <source>New Name for %1</source>
         <translation>Neuer Name für %1</translation>
     </message>
     <message>
-        <source>Cloning.</source>
-        <translation type="vanished">Am Klonen.</translation>
-    </message>
-    <message>
-        <source>Cloning failed</source>
-        <translation type="vanished">Klonen fehlgeschlagen.</translation>
-    </message>
-    <message>
-        <source>Failed to clone %1.</source>
-        <translation type="vanished">Fehlgeschlagener Klonversuch (%1).</translation>
-    </message>
-    <message>
-        <source>Cannot load project</source>
-        <translation type="vanished">Kann diese Projekt nicht laden</translation>
-    </message>
-    <message>
-        <source>Failed to load cloned project.
-Make sure you cloned the correct repository and the repository is valid.</source>
-        <translation type="vanished">Kann geklontes Projekt nicht öffnen.
-Stelle sicher dass Du das richtige Repository geklont hast.</translation>
-    </message>
-    <message>
-        <source>You must provide a valid identity to sync. Abort.</source>
-        <translation type="vanished">Du musst eine gültige Identität zum Synchronisieren angeben. Abbruch.</translation>
-    </message>
-    <message>
-        <source>Commit message may not be empty. Abort.</source>
-        <translation type="vanished">Commit nachricht darf nicht leer sein. Abbruch.</translation>
-    </message>
-    <message>
-        <source>Password for %1</source>
-        <translation type="vanished">Passwort für %1</translation>
-    </message>
-    <message>
-        <source>Password</source>
-        <translation type="vanished">Password</translation>
-    </message>
-    <message>
-        <source>Syncing.</source>
-        <translation type="vanished">Synchronisiere.</translation>
-    </message>
-    <message>
-        <source>Failed to load project.</source>
-        <translation type="vanished">Konnte das Projekt nicht laden.</translation>
-    </message>
-    <message>
-        <source>Cannot open merged project.
-Probably merging went wrong or the remote version was currupted.
-Fix the error by hand and commit it over the current version, then clone the fixed repository.</source>
-        <translation type="vanished">Kann zusammengefügtes Projekt nicht öffnen.
-Wahrscheinlich ist das Zusammenführen schiefgegangen oder die Remote-Version war defekt.
-Du musst den Fehler von Hand beheben und dann das reparierte Repository klonen.</translation>
-    </message>
-    <message>
-        <source>Sync failed.
-Make sure your username/password is correct and the remote repository is reachable</source>
-        <translation type="vanished">Synchronisieren fehlgeschlagen.
-Versichere dich, dass Benutzername und Passwort stimmen 
-und dass du Zugang zum Repository hast.</translation>
-    </message>
-    <message>
-        <location filename="mainwindow.cpp" line="835"/>
+        <location filename="mainwindow.cpp" line="834"/>
         <source>All songs</source>
         <translation>Alle Songs</translation>
     </message>
     <message>
-        <source>Synchronize?</source>
-        <translation type="vanished">Synchronisieren?</translation>
-    </message>
-    <message>
-        <source>The project may not be synchronized with the remote.
-Do you want to synchronize them now?
-You can always do this later, but it is recommended to do it now.</source>
-        <translation type="vanished">Das Projekt könnte nicht mit dem Remote synchronisiert sein.
-Möchtest du es jetzt synchronisieren?
-Das kannst du auch später tun, aber tue es besser jetzt.</translation>
-    </message>
-    <message>
-        <source>Sync failed.</source>
-        <translation type="vanished">Synchronisieren fehlgeschlagen.</translation>
-    </message>
-    <message>
-        <source>Sync succeeded</source>
-        <translation type="vanished">Synchronisieren erfolgreich</translation>
-    </message>
-    <message>
-        <location filename="mainwindow.cpp" line="706"/>
+        <location filename="mainwindow.cpp" line="705"/>
         <source>File index information</source>
         <translation>Informationen über Dateiindex</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="707"/>
+        <location filename="mainwindow.cpp" line="706"/>
         <source>Files: %1</source>
         <translation>Dateien: %1</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="901"/>
+        <location filename="mainwindow.cpp" line="906"/>
         <source>Open project or archive ...</source>
         <translation>Projekt oder Archiv öffnen ...</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="921"/>
-        <location filename="mainwindow.cpp" line="940"/>
+        <location filename="mainwindow.cpp" line="926"/>
+        <location filename="mainwindow.cpp" line="945"/>
         <source>Opening %1</source>
         <translation>Öffne %1</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="941"/>
+        <location filename="mainwindow.cpp" line="946"/>
         <source>Cannot open %1. Unknown file format.</source>
         <translation>Kann %1 nicht öffnen. Unbekanntes Format</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="922"/>
+        <location filename="mainwindow.cpp" line="927"/>
         <source>File %1 not found.</source>
         <translation>Datei %1 nicht gefunden.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="546"/>
+        <location filename="mainwindow.cpp" line="547"/>
         <source>Attachment cannot be removed</source>
         <translation>Anlage kann nicht gelöscht werden</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="547"/>
+        <location filename="mainwindow.cpp" line="548"/>
         <source>This attachment is currently in use and can thus not be removed.</source>
         <translation>Diese Anlage wird von einer anderen benutzt und kann deshalb nicht gelöscht werden.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="815"/>
+        <location filename="mainwindow.cpp" line="814"/>
         <source>Information</source>
         <translation>Information</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="816"/>
+        <location filename="mainwindow.cpp" line="815"/>
         <source>Language changes will apply on next start.</source>
         <translation>Sprache ändert sich beim nächsten Start.</translation>
     </message>
@@ -1815,10 +1482,6 @@ Das kannst du auch später tun, aber tue es besser jetzt.</translation>
         <translation>Verschiedenes</translation>
     </message>
     <message>
-        <source>Table of Content</source>
-        <translation type="vanished">Inhaltsverzeichnis</translation>
-    </message>
-    <message>
         <location filename="PDFCreator/pdfcreator.cpp" line="889"/>
         <location filename="PDFCreator/pdfcreator.cpp" line="896"/>
         <source>Export PDF ...</source>
@@ -1853,25 +1516,6 @@ Do you want to replace it?</source>
         <location filename="Database/EventDatabase/setlist.h" line="19"/>
         <source>Unnamed</source>
         <translation>Unbenannt</translation>
-    </message>
-    <message>
-        <source>Table of Content</source>
-        <translation type="vanished">Inhaltsverzeichnis</translation>
-    </message>
-    <message>
-        <source>Cannot find translation files</source>
-        <translation type="vanished">Cannot find translation files.</translation>
-    </message>
-    <message>
-        <source>Translation file &quot;%1&quot; not found.
-Using fallback-english which is not recommended.</source>
-        <translation type="vanished">Sprachdatei &quot;%1&quot; nicht gefunden.
-Benutze Notfall-English (nicht empfohlen).
-</translation>
-    </message>
-    <message>
-        <source>Reherasal</source>
-        <translation type="obsolete">Probe</translation>
     </message>
 </context>
 <context>
@@ -2015,23 +1659,6 @@ Benutze Notfall-English (nicht empfohlen).
         <source>Remove Setlist Items</source>
         <translation>Setlistelemente löschen.</translation>
     </message>
-    <message>
-        <source>Export PDF ...</source>
-        <translation type="vanished">Exportiere in PDF ...</translation>
-    </message>
-    <message>
-        <source>%1 already exists.
-Do you want to replace it?</source>
-        <translation type="vanished">%1 existiert bereits. Möchtest du es überschreiben?</translation>
-    </message>
-    <message>
-        <source>Cannot write</source>
-        <translation type="vanished">Kann nicht schreiben.</translation>
-    </message>
-    <message>
-        <source>File %1 is not writable.</source>
-        <translation type="vanished">%1 ist nicht schreibbar.</translation>
-    </message>
 </context>
 <context>
     <name>SongTableView</name>
@@ -2064,7 +1691,7 @@ Do you want to replace it?</source>
         <translation>&amp;Abbrechen</translation>
     </message>
     <message>
-        <location filename="Dialogs/stringdialog.ui" line="85"/>
+        <location filename="Dialogs/stringdialog.ui" line="91"/>
         <source>&amp;Ok</source>
         <translation>&amp;Ok</translation>
     </message>
@@ -2095,32 +1722,17 @@ Do you want to replace it?</source>
 <context>
     <name>TypeComboBoxDelegate</name>
     <message>
-        <source>Rehearasal</source>
-        <oldsource>Rehearsal</oldsource>
-        <translation type="vanished">lololo</translation>
-    </message>
-    <message>
-        <source>Giga</source>
-        <oldsource>Gig</oldsource>
-        <translation type="vanished">Auftrittaaa</translation>
-    </message>
-    <message>
-        <source>Othera</source>
-        <oldsource>Other</oldsource>
-        <translation type="vanished">Verschiedenesaaa</translation>
-    </message>
-    <message>
-        <location filename="DatabaseView/EventDatabaseView/eventtableview.cpp" line="37"/>
+        <location filename="DatabaseView/EventDatabaseView/eventtableviewdelegates.cpp" line="24"/>
         <source>Reherasal</source>
         <translation>Probe</translation>
     </message>
     <message>
-        <location filename="DatabaseView/EventDatabaseView/eventtableview.cpp" line="38"/>
+        <location filename="DatabaseView/EventDatabaseView/eventtableviewdelegates.cpp" line="25"/>
         <source>Gig</source>
         <translation>Auftritt</translation>
     </message>
     <message>
-        <location filename="DatabaseView/EventDatabaseView/eventtableview.cpp" line="39"/>
+        <location filename="DatabaseView/EventDatabaseView/eventtableviewdelegates.cpp" line="26"/>
         <source>Other</source>
         <translation>Verschiedenes</translation>
     </message>

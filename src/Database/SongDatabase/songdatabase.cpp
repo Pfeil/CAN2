@@ -286,7 +286,7 @@ void SongDatabase::insertSong(Song* song, const int index)
     m_tmpSongBuffer.append(song);
     connect( song, SIGNAL(attachmentAdded(int)),   this, SIGNAL(attachmentAdded(int)  ));
     connect( song, SIGNAL(attachmentRemoved(int)), this, SIGNAL(attachmentRemoved(int)));
-    connect( song, SIGNAL(attachmentRenamed(int, QString)), this, SIGNAL(attachmentRenamed(int,QString)));
+    connect( song, SIGNAL(attachmentRenamed(QString)), this, SIGNAL(attachmentRenamed(QString)));
     assert( insertRows( index, 1, QModelIndex() ));
 }
 

@@ -87,7 +87,6 @@ SOURCES += main.cpp\
     Commands/AttachmentCommands/attachmentcommand.cpp \
     Commands/AttachmentCommands/attachmentrenamecommand.cpp \
     Attachments/ChordPatternAttachment/chord.cpp \
-    Commands/AttachmentCommands/chordpatternattachmenttransposecommand.cpp \
     Dialogs/stringdialog.cpp \
     Commands/SongCommands/songduplicateattachmentcommand.cpp \
     AttachmentView/IndexedFileAttachmentView/indexedfileattachmentview.cpp \
@@ -146,7 +145,8 @@ SOURCES += main.cpp\
     Attachments/ChordPatternAttachment/chordpatternproxyattachment.cpp \
     AttachmentView/chordpatternproxyattachmentview.cpp \
     Attachments/ChordPatternAttachment/abstractchordpatternattachment.cpp \
-    DatabaseView/EventDatabaseView/eventtableviewdelegates.cpp
+    DatabaseView/EventDatabaseView/eventtableviewdelegates.cpp \
+    Commands/AttachmentCommands/abstractchordpatternattachmenttransposecommand.cpp
 
 HEADERS  += mainwindow.h \
     project.h \
@@ -197,7 +197,6 @@ HEADERS  += mainwindow.h \
     AttachmentView/attachmentchooser.h \
     Commands/AttachmentCommands/attachmentcommand.h \
     Attachments/ChordPatternAttachment/chord.h \
-    Commands/AttachmentCommands/chordpatternattachmenttransposecommand.h \
     Dialogs/stringdialog.h \
     Commands/SongCommands/songduplicateattachmentcommand.h \
     AttachmentView/IndexedFileAttachmentView/indexedfileattachmentview.h \
@@ -228,7 +227,6 @@ HEADERS  += mainwindow.h \
     Commands/SetlistCommands/setlistinsertitemcommand.h \
     DatabaseView/EventDatabaseView/setlistview.h \
     Commands/SetlistCommands/setlistmoverowscommand.h \
-    Commands/AttachmentCommands/chordpatternattachmenteditpatterncommand.h \
     Attachments/AudioAttachment/sectionsmodel.h \
     Commands/AttachmentCommands/AudioAttachmentCommands/editsectioncommand.h \
     Attachments/AudioAttachment/buffer.h \
@@ -263,7 +261,9 @@ HEADERS  += mainwindow.h \
     Attachments/ChordPatternAttachment/chordpatternproxyattachment.h \
     AttachmentView/chordpatternproxyattachmentview.h \
     Attachments/ChordPatternAttachment/abstractchordpatternattachment.h \
-    DatabaseView/EventDatabaseView/eventtableviewdelegates.h
+    DatabaseView/EventDatabaseView/eventtableviewdelegates.h \
+    Commands/AttachmentCommands/chordpatternattachmenteditpatterncommand.h \
+    Commands/AttachmentCommands/abstractchordpatternattachmenttransposecommand.h
 
 FORMS    += mainwindow.ui \
     DatabaseView/SongDatabaseView/songtableviewcontainer.ui \

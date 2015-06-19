@@ -237,7 +237,7 @@ void Song::connectAttachment(Attachment *attachment)
 {
     connect( attachment, &Attachment::attachmentRenamed, [this](QString name)
     {
-        emit attachmentRenamed( m_songDatabase->songs().indexOf(this), name );
+        emit attachmentRenamed( name );
     });
 }
 

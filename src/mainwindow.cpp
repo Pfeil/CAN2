@@ -133,9 +133,10 @@ MainWindow::MainWindow(QWidget *parent) :
     {
         setCurrentAttachment( i );
     });
-    connect( m_project.songDatabase(), &SongDatabase::attachmentRenamed, [this](int i, QString)
+    connect( m_project.songDatabase(), &SongDatabase::attachmentRenamed, [this](QString)
     {
-        setCurrentAttachment( i );
+        // just update the current attachment
+        setCurrentAttachment( currentAttachmentIndex() );
     });
     connect( m_project.songDatabase(), &SongDatabase::dataChanged, [this]()
     {
@@ -661,22 +662,20 @@ void MainWindow::on_actionClear_Index_triggered()
 #include "Commands/AttachmentCommands/attachmentrenamecommand.h"
 void MainWindow::on_actionRename_Attachment_triggered()
 {
-    Song* cs = currentSong();
-    assert( cs );
 
-    int index = ui->songDatabaseWidget->attachmentChooser()->currentAttachmentIndex();
-    assert( index >= 0 );
-
-    Attachment* attachment = cs->attachments()[index];
-    QString name = attachment->name();
-    QString newName = StringDialog::getString( tr("Rename Attachment"), name, QString(tr("New Name for %1")).arg(name) );
-    if (newName.isEmpty())
+    Attachment* attachment = currentAttachment();
+    if (attachment)
     {
-        return;
-    }
+        QString name = attachment->name();
+        QString newName = StringDialog::getString( tr("Rename Attachment"), name, QString(tr("New Name for %1")).arg(name) );
+        if (newName.isEmpty())
+        {
+            return;
+        }
 
-    app().pushCommand( new AttachmentRenameCommand( attachment, newName ) );
-    updateWhichWidgetsAreEnabled();
+        app().pushCommand( new AttachmentRenameCommand( attachment, newName ) );
+        updateWhichWidgetsAreEnabled();
+    }
 }
 
 #include "Commands/SongCommands/songduplicateattachmentcommand.h"
@@ -847,10 +846,16 @@ void MainWindow::selectPage(Page page)
     switch (page)
     {
     case SongDatabasePage:
-        ui->stackedWidget->setCurrentIndex( 0 );
+        if (ui->stackedWidget->currentIndex() != 0)
+        {
+            ui->stackedWidget->setCurrentIndex( 0 );
+        }
         break;
     case EventDatabasePage:
-        ui->stackedWidget->setCurrentIndex( 1 );
+        if (ui->stackedWidget->currentIndex() != 1)
+        {
+            ui->stackedWidget->setCurrentIndex( 1 );
+        }
         break;
     }
 }

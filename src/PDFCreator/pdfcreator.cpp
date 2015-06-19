@@ -117,7 +117,7 @@ void PDFCreator::run()
         alignSongs( 1 );
         break;
     case 3: // duplex
-        optimizeForDuplex();    //TODO distinguish duplex even/odd
+        optimizeForDuplex();
         break;
     case 4: // endless, songs will not be aligned either.
     case 5: // separate songs, will not be aligned.

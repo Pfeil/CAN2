@@ -2,7 +2,6 @@
 #include "ui_chordpatternproxyattachmentview.h"
 #include "Dialogs/chordpatternviewer.h"
 #include "application.h"
-#include "Commands/AttachmentCommands/chordpatternattachmenttransposecommand.h"
 #include "Attachments/ChordPatternAttachment/chordpatternproxyattachment.h"
 #include "chordpatternattachmentview.h"
 
@@ -27,16 +26,15 @@ void ChordPatternProxyAttachmentView::polish()
     updateText();
 }
 
+#include "Commands/AttachmentCommands/abstractchordpatternattachmenttransposecommand.h"
 void ChordPatternProxyAttachmentView::on_buttonUp_clicked()
 {
-    //TODO make a command
-    attachment<ChordPatternProxyAttachment>()->transpose( 1 );
+    app().pushCommand( new AbstractChordPatternAttachmentTransposeCommand( attachment<ChordPatternProxyAttachment>(),  1 ) );
 }
 
 void ChordPatternProxyAttachmentView::on_buttonDown_clicked()
 {
-    //TODO make a command
-    attachment<ChordPatternProxyAttachment>()->transpose( -1 );
+    app().pushCommand( new AbstractChordPatternAttachmentTransposeCommand( attachment<ChordPatternProxyAttachment>(), -1 ) );
 }
 
 void ChordPatternProxyAttachmentView::on_buttonView_clicked()

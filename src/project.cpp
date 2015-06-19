@@ -29,11 +29,6 @@ void Project::setCanClose(bool b)
         m_canClose = b;
         emit canCloseChanged(b);
     }
-
-    if (!b)
-    {
-        m_isSynchronized = false;
-    }
 }
 
 bool Project::loadFromTempDir()
@@ -157,16 +152,5 @@ bool Project::canClose() const
 {
     return m_canClose;
 }
-
-bool Project::isSynchronized() const
-{
-    return m_isSynchronized;
-}
-
-void Project::setIsSynchronized()
-{
-    m_isSynchronized = true;
-}
-
 
 

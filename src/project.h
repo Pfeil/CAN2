@@ -48,14 +48,10 @@ private:
 
 public:
     bool canClose() const;
-    bool isSynchronized() const;
-    void setIsSynchronized();
-    void markFileRemoved( const QString& filename );
 
 private:
     void setCanClose( bool b );
     bool m_canClose = true;
-    bool m_isSynchronized = false;
     void resetUndoStack();
     void emitCommandPushedSignal(Command::Type type);
 

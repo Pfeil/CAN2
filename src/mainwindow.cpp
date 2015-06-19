@@ -257,8 +257,6 @@ void MainWindow::createAttachmentActions()
                 app().pushCommand( command );
                 updateWhichWidgetsAreEnabled();
 
-                qDebug() << lastAttachment << command->attachment();
-
                 if (lastAttachment->inherits( "ChordPatternAttachment" )
                  && command->attachment()->inherits( "ChordPatternProxyAttachment" ) )
                 {
@@ -310,29 +308,6 @@ QString MainWindow::projectName() const
     }
 }
 
-bool MainWindow::saveProject()
-{
-    if (m_currentPath.isEmpty())
-    {
-        return saveProjectAs();
-    }
-    else
-    {
-        bool success  = m_project.saveZip( m_currentPath );
-//             success &= m_project.loadFromTempDir(); // files might have changed
-        if (success)
-        {
-            setCurrentPath( m_currentPath );   // ensure that the current filename is stored as to-default-open project
-            updateWindowTitle();
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-}
-
 void MainWindow::setCurrentPath(const QString &path)
 {
     m_currentPath = path;
@@ -359,28 +334,6 @@ QString MainWindow::proposedPath() const
     }
 }
 
-bool MainWindow::saveProjectAs()
-{
-    QString filename =
-    QFileDialog::getSaveFileName( this,
-                                  tr("Save As ..."),
-                                  proposedPath(),
-                                  filter()          );
-    if (filename.isEmpty())
-    {
-        return false;
-    }
-    else
-    {
-        QString ending = QString(".%1").arg(m_project.ending());
-        if (!filename.endsWith( ending ))
-        {
-            filename.append(ending);
-        }
-        setCurrentPath(filename);
-        return saveProject();
-    }
-}
 
 bool MainWindow::newProject()
 {
@@ -411,7 +364,7 @@ bool MainWindow::canProjectClose()
                                QMessageBox::Abort ) )
         {
         case QMessageBox::Save:
-            return saveProject();
+            return save();
         case QMessageBox::Discard:
             return true;
         case QMessageBox::Abort:
@@ -457,7 +410,10 @@ void MainWindow::closeEvent(QCloseEvent *e)
 void MainWindow::loadDefaultProject()
 {
     m_currentPath = config.value( "RecentProject" ).toString();
-    open( m_currentPath );
+    if (!m_currentPath.isEmpty())
+    {
+        open( m_currentPath );
+    }
 }
 
 int MainWindow::currentAttachmentIndex() const
@@ -601,37 +557,6 @@ void MainWindow::on_actionNew_Project_triggered()
     updateWhichWidgetsAreEnabled();
 }
 
-void MainWindow::on_actionSave_triggered()
-{
-    saveProject();
-    updateWhichWidgetsAreEnabled();
-}
-
-void MainWindow::on_actionSave_As_triggered()
-{
-    saveProjectAs();
-    updateWhichWidgetsAreEnabled();
-}
-
-void MainWindow::on_actionOpen_triggered()
-{
-    if (!canProjectClose())
-    {
-        return; // user aborted opening;
-    }
-
-    QString filename =
-    QFileDialog::getOpenFileName( this,
-                                  tr("Open ..."),
-                                  proposedPath(),
-                                  filter()              );
-    if (filename.isEmpty())
-    {
-        return; // user aborted opening
-    }
-
-    open(filename);
-}
 
 bool MainWindow::canRemoveSong(Song *song)
 {
@@ -869,45 +794,6 @@ void MainWindow::createAttributeVisibilityMenu()
 
 }
 
-void MainWindow::open(const QString &filename)
-{
-    if (!filename.isEmpty())
-    {
-        if (QFileInfo(filename).isReadable())
-        {
-            if ( m_project.loadZip( filename ) )
-            {
-                setCurrentPath( filename );
-                updateWindowTitle();
-                updateWhichWidgetsAreEnabled();
-            }
-            else
-            {
-                QMessageBox::warning( this,
-                                      QString(tr("Opening %1")).arg(filename),
-                                      QString(tr("Cannot open %1. Unknown file format.")).arg(filename),
-                                      QMessageBox::Ok
-                                      );
-                setCurrentPath("");
-                newProject();
-            }
-        }
-        else
-        {
-            QMessageBox::warning( this,
-                                  QString(tr("Opening %1")).arg(filename),
-                                  QString(tr("File %1 not found.")).arg(filename),
-                                  QMessageBox::Ok
-                                  );
-            m_project.reset();
-            setCurrentPath("");
-            newProject();
-        }
-        updateWindowTitle();
-        updateWhichWidgetsAreEnabled();
-    }
-}
-
 void MainWindow::createLanguageMenu()
 {
     for (const QFileInfo& fileInfo : QDir(":/translations/").entryInfoList(QStringList() << "can2*.qm", QDir::Files, QDir::Name ))
@@ -944,7 +830,7 @@ SongTableView* MainWindow::songTableView()
 
 #include "PDFCreator/pdfcreator.h"
 #include "PDFCreator/orphantsetlist.h"
-void MainWindow::on_action_Export_all_songs_triggered()
+void MainWindow::on_actionExport_all_songs_triggered()
 {
     OrphantSetlist setlist( tr("All songs"));
 
@@ -986,6 +872,206 @@ void MainWindow::createDebugMenu()
 }
 
 
+void MainWindow::on_actionSave_triggered()
+{
+    save();
+}
+
+void MainWindow::on_actionSave_As_triggered()
+{
+    saveProjectAs();
+}
+
+void MainWindow::on_actionOpen_triggered()
+{
+
+    if (!canProjectClose())
+    {
+        return;
+    }
+
+    QString filename = config["RecentProject"].toString();
+    if (filename.isEmpty())
+    {
+        filename = QDir::homePath();
+    }
+
+    filename =
+    QFileDialog::getOpenFileName( this,
+                                  tr("Open project or archive ..."),
+                                  filename
+                                   );
+    if (!filename.isEmpty())
+    {
+        open( filename );
+    }
+}
+
+void MainWindow::on_actionArchivate_triggered()
+{
+    saveArchiveAs();
+}
+
+bool MainWindow::open( const QString& filename )
+{
+    QFile file(filename);
+    if (!file.open(QIODevice::ReadOnly))
+    {
+        QMessageBox::warning( this,
+                              QString(tr("Opening %1")).arg(filename),
+                              QString(tr("File %1 not found.")).arg(filename),
+                              QMessageBox::Ok
+                              );
+        return false;
+    }
+
+    if (m_project.isProjectFile( filename ) && openProject( filename ))
+    {
+        // all right, project opened
+    }
+    else if (openArchive( filename ))
+    {
+        // all right, archive opened
+    }
+    else
+    {
+        // fail;
+        QMessageBox::warning( this,
+                              QString(tr("Opening %1")).arg(filename),
+                              QString(tr("Cannot open %1. Unknown file format.")).arg(filename),
+                              QMessageBox::Ok
+                              );
+        newProject();
+        return false;
+    }
+
+    updateWindowTitle();
+    updateWhichWidgetsAreEnabled();
+    return true;
+}
+
+bool MainWindow::save()
+{
+    if (m_currentPath.isEmpty())
+    {
+        QMessageBox box( this );
+        box.setStandardButtons( QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel );
+        box.setButtonText( QMessageBox::Yes, tr("Save project as ...") );
+        box.setButtonText( QMessageBox::No, tr("Archive project as ...") );
+        box.setIcon( QMessageBox::Question );
+        switch (box.exec())
+        {
+        case QMessageBox::Yes:
+            return saveProjectAs();
+        case QMessageBox::No:
+            return saveArchiveAs();
+        case QMessageBox::Cancel:
+        default:
+            return false;
+        }
+    }
+    else if ( m_project.isProjectFile( m_currentPath ))
+    {
+        return saveProjectAs( m_currentPath );
+    }
+    else
+    {
+        return saveArchiveAs( m_currentPath );
+
+    }
+}
+
+bool MainWindow::openArchive(const QString &filename)
+{
+    // just call this from open()
+    if ( m_project.loadZip( filename ) )
+    {
+        setCurrentPath( filename );
+        updateWindowTitle();
+        updateWhichWidgetsAreEnabled();
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool MainWindow::openProject(const QString &filename)
+{
+    // just call this from open()
+    if ( m_project.loadProject( filename ) )
+    {
+        setCurrentPath( filename );
+        updateWindowTitle();
+        updateWhichWidgetsAreEnabled();
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool MainWindow::saveProjectAs()
+{
+    QString filename =
+    QFileDialog::getSaveFileName( this,
+                                  tr("Save project ..."),
+                                  config["RecentProject"].toString() );
+    if (filename.isEmpty())
+    {
+        return false;
+    }
+    else
+    {
+        return saveProjectAs( filename );
+    }
+}
+
+bool MainWindow::saveProjectAs(const QString &filename)
+{
+    if (m_project.saveProject( filename ))
+    {
+        setCurrentPath( filename );
+        updateWindowTitle();
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool MainWindow::saveArchiveAs()
+{
+    QString filename =
+    QFileDialog::getSaveFileName( this,
+                                  tr("Save archive ..."),
+                                  config["RecentProject"].toString() );
+    if (filename.isEmpty())
+    {
+        return false;
+    }
+    else
+    {
+        return saveArchiveAs( filename );
+    }
+}
+
+bool MainWindow::saveArchiveAs(const QString &filename)
+{
+    if (m_project.saveZip( filename ))
+    {
+        setCurrentPath( filename );
+        updateWindowTitle();
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
 
 
 

@@ -2,6 +2,9 @@
 #include <QStack>
 #include "global.h"
 #include <QFileInfo>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
 
 bool removeDir(const QString & dirName)
 {
@@ -316,5 +319,150 @@ QStringList Zipped::find() const
     }
 
     return files;
+}
+
+
+QJsonDocument generateProjectFile( const QStringList& files, const QString& ending )
+{
+    QJsonObject object;
+
+    object["version"] = "1.0";
+    object["ending"] = ending;
+
+    QJsonArray fileArray;
+    for (const QString& file : files)
+    {
+        fileArray.append( file );
+    }
+    object["files"] = fileArray;
+
+    return QJsonDocument(object);
+}
+
+bool Zipped::saveProject( QString filename )
+{
+
+    if (!saveToTempDir())
+    {
+        return false;
+    }
+
+    QStringList filenames;
+
+    QDir targetDir( QFileInfo( filename ).dir() );
+    for (const QString& filename : dir().entryList( QDir::Files ))
+    {
+        filenames << filename;
+        QString source = dir().absoluteFilePath( filename );
+        QString target = targetDir.absoluteFilePath( filename );
+
+        if (QFileInfo(target).exists())
+        {
+            if (!QFile( target ).remove())
+            {
+                qWarning() << "cannot overwrite file " << target << ". Copy will fail!";
+            }
+
+        }
+        if (!QFile::copy( source, target ))
+        {
+            qWarning() << "copy failed: " << source << " -> " << target;
+            return false;
+        }
+    }
+
+    if (!filename.endsWith("." + ending()))
+    {
+        filename.append( "." + ending() );
+    }
+    QFile projectFile( filename );
+    if (!projectFile.open( QIODevice::WriteOnly ))
+    {
+        qWarning() << "cannot write project file";
+        return false;
+    }
+
+    QJsonDocument doc = generateProjectFile( filenames, ending() );
+    projectFile.write( doc.toJson() );
+
+    return true;
+}
+
+
+bool Zipped::loadProject( const QString& filename )
+{
+    QFile projectFile( filename );
+    if (!projectFile.open(QIODevice::ReadOnly))
+    {
+        qWarning() << "cannot open project file.";
+        return false;
+    }
+
+    QJsonDocument doc = QJsonDocument::fromJson( projectFile.readAll() );
+    if (doc.isEmpty())
+    {
+        qWarning() << filename << "is not a valid JSON document.";
+        return false;
+    }
+    QJsonObject obj = doc.object();
+    if (obj["ending"].toString() != ending())
+    {
+        qWarning() << "endings mismatch.";
+        return false;
+    }
+
+    QDir sourceDir( QFileInfo( filename ).dir() );
+
+    for (const QString& filename : dir().entryList( QDir::Files ))
+    {
+        QString absFilename = dir().absoluteFilePath( filename );
+        if (!QFile(absFilename).remove())
+        {
+            qWarning() << "cannot remove old file " << absFilename;
+        }
+    }
+
+    for (const QJsonValue& v : obj["files"].toArray())
+    {
+        QString source = sourceDir.absoluteFilePath( v.toString() );
+        QString target = dir().absoluteFilePath( v.toString() );
+        if (!QFile::copy( source, target ))
+        {
+            qWarning() << "copy failed: " << source << " -> " << target;
+            return false;
+        }
+    }
+
+    if (!loadFromTempDir())
+    {
+        return false;
+    }
+
+    return true;
+}
+
+bool Zipped::isProjectFile(const QString &filename)
+{
+    QFile file( filename );
+    if (!file.open(QIODevice::ReadOnly))
+    {
+        return false;
+    }
+    else
+    {
+        QJsonDocument doc = QJsonDocument::fromJson( file.readAll() );
+        if (doc.isNull())
+        {
+            return false;
+        }
+        else if (doc.object()["ending"] != ending())
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
 }
 

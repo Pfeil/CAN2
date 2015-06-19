@@ -52,8 +52,20 @@ private:
     QString filter() const { return tr("All files (*);;CAN files (*.can)"); }
     QString proposedPath() const;
     QString m_currentPath;
-    bool saveProject();
+
+    // may archivate or save project
+    bool save();
+    bool open(const QString &filename);
     bool saveProjectAs();
+    bool saveArchiveAs();
+    bool saveProjectAs( const QString& filename );
+    bool saveArchiveAs( const QString& filename );
+    bool openProject( const QString& filename );
+    bool openArchive( const QString& filename );
+
+
+
+
     bool newProject();
     void loadDefaultProject();
     void createDebugMenu();
@@ -97,7 +109,8 @@ private slots:
     void createAttributeVisibilityMenu();
     void createLanguageMenu();
 
-    void on_action_Export_all_songs_triggered();
+    void on_actionExport_all_songs_triggered();
+    void on_actionArchivate_triggered();
 
 private:
     void createAttachmentActions();
@@ -113,7 +126,6 @@ private:
     bool canRemoveSong( Song* song );
     bool canRemoveAttachment(const Attachment *attachment );
 
-    void open(const QString& filename);
 
     QAction* m_actionNew_Song;
     QAction* m_actionDelete_Song;

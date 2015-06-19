@@ -25,9 +25,21 @@ public:
      */
     virtual bool saveZip(const QString & filename);
 
+    bool saveProject( QString filename );
+    bool loadProject(const QString& filename );
+
+    /**
+     * @brief isProjectFile returns whether the file is a valid project file
+     * @param filename
+     * @return
+     */
+    bool isProjectFile( const QString& filename );
+
     QString path() const { return m_tempDir.path(); }
     QString makeAbsolute(const QString & relative) const { return dir().absoluteFilePath(relative); }
     QDir dir() const { return QDir(m_tempDir.path()); }
+
+
 
     QString ending() const { return m_ending; }
 

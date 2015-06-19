@@ -123,7 +123,6 @@ bool ChordPatternProxyAttachment::restoreFromJsonObject(const QJsonObject &objec
         else
         {
             Attachment* a = song()->attachment(i);
-            qDebug() << a;
             if (a->inherits("ChordPatternAttachment"))
             {
                 m_source = qobject_assert_cast<ChordPatternAttachment*>( a );

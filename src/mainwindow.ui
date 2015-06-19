@@ -193,6 +193,8 @@
     <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
     <addaction name="actionSave_As"/>
+    <addaction name="actionArchivate"/>
+    <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menuTools">
     <property name="toolTip">
@@ -202,7 +204,8 @@
      <string>&amp;Tools</string>
     </property>
     <addaction name="actionSettings"/>
-    <addaction name="action_Export_all_songs"/>
+    <addaction name="separator"/>
+    <addaction name="actionExport_all_songs"/>
    </widget>
    <widget class="QMenu" name="menuAttachments">
     <property name="toolTip">
@@ -500,9 +503,14 @@
     <string notr="true"/>
    </property>
   </action>
-  <action name="action_Export_all_songs">
+  <action name="actionArchivate">
    <property name="text">
-    <string>&amp;Export all songs</string>
+    <string>Archivate ...</string>
+   </property>
+  </action>
+  <action name="actionExport_all_songs">
+   <property name="text">
+    <string>Export all songs</string>
    </property>
   </action>
  </widget>

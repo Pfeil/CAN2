@@ -18,10 +18,13 @@ public:
     QStringList tags() const { return m_tags; }
     void setTags( const QStringList& tags );
 
+protected:
+    bool eventFilter(QObject *o, QEvent *e);
+
 private:
     Ui::TagEditor *ui;
     QStringList m_tags;
-    void updateTextEdit();
+    void updateEdits();
     void addTag( const QString& tag );
 
 private slots:

@@ -96,7 +96,7 @@ bool ChordPatternAttachment::restoreFromJsonObject(const QJsonObject &object)
         // scrollDownTempo is not as important. keep success.
     }
 
-    return Attachment::restoreFromJsonObject( object );
+    return success && Attachment::restoreFromJsonObject( object );
 }
 
 void ChordPatternAttachment::setPattern(const QString &pattern)

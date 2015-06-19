@@ -7,8 +7,7 @@ TagEditor::TagEditor(QWidget *parent) :
     ui(new Ui::TagEditor)
 {
     ui->setupUi(this);
-    updateTextEdit();
-    ui->comboBox->addItems( Taggable::allTags() );
+    updateEdits();
     ui->label->setTextInteractionFlags( Qt::TextSelectableByKeyboard | Qt::TextSelectableByMouse );
     ui->comboBox->setInsertPolicy( QComboBox::InsertAtTop );
     connect( ui->label, SIGNAL(linkActivated(QString)), this, SLOT(removeTag(QString)) );
@@ -21,6 +20,11 @@ TagEditor::TagEditor(QWidget *parent) :
     ui->pushButton->setEnabled( false );
 
     ui->comboBox->setCurrentIndex( -1 );
+
+    ui->comboBox->installEventFilter( this );
+    ui->pushButton->installEventFilter( this );
+    ui->label->installEventFilter( this );
+    installEventFilter( this );
 }
 
 TagEditor::~TagEditor()
@@ -31,12 +35,13 @@ TagEditor::~TagEditor()
 void TagEditor::setTags( const QStringList& tags )
 {
     m_tags = tags;
-    updateTextEdit();
+    updateEdits();
 }
 
-void TagEditor::updateTextEdit()
+void TagEditor::updateEdits()
 {
     ui->label->clear();
+    ui->comboBox->clear();
 
     QStringList tokens;
     QChar x = QChar(0x2717);
@@ -46,6 +51,15 @@ void TagEditor::updateTextEdit()
         tokens << QString("<a href=\"%1\" style=\"text-decoration: none\"><u>%1</u><sup>%2</sup></a>").arg(tag).arg(x);
     }
 
+    for ( const QString & tag : Taggable::allTags() )
+    {
+        if (!tags().contains(tag))
+        {
+            ui->comboBox->addItem( tag );
+        }
+    }
+
+    ui->comboBox->setCurrentIndex( -1 );
     ui->label->setText( QString("<html>%1</html>").arg(tokens.join(" ") ));
 }
 
@@ -54,7 +68,7 @@ void TagEditor::addTag(const QString &tag)
     if (!tag.isEmpty() && !m_tags.contains(tag))
     {
         m_tags.append( tag );
-        updateTextEdit();
+        updateEdits();
     }
 }
 
@@ -66,6 +80,20 @@ void TagEditor::on_pushButton_clicked()
 void TagEditor::removeTag(QString tag)
 {
     m_tags.removeOne( tag );
-    updateTextEdit();
+    updateEdits();
+}
+
+bool TagEditor::eventFilter(QObject *o, QEvent *e)
+{
+    if (e->type() == QEvent::KeyPress && ((QKeyEvent*) e)->key() == Qt::Key_Return)
+    {
+        e->accept();
+        on_pushButton_clicked();
+        return true;
+    }
+    else
+    {
+        return QWidget::eventFilter(o, e);
+    }
 }
 

@@ -136,5 +136,5 @@ bool ChordPatternProxyAttachment::restoreFromJsonObject(const QJsonObject &objec
         }
     }
 
-    return success;
+    return Attachment::restoreFromJsonObject( object );
 }

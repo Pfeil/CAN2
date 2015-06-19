@@ -131,7 +131,6 @@ SOURCES += main.cpp\
     Commands/SongDatabaseCommands/songdatabasemovesongcommand.cpp \
     Commands/EventDatabaseCommands/eventdatabasemoveeventcommand.cpp \
     Commands/SongDatabaseCommands/songdatabasetoggleattributevisibility.cpp \
-    Dialogs/tagdialog.cpp \
     Commands/edittagscommand.cpp \
     PDFCreator/page.cpp \
     PDFCreator/pdfcreator.cpp \
@@ -146,7 +145,10 @@ SOURCES += main.cpp\
     AttachmentView/chordpatternproxyattachmentview.cpp \
     Attachments/ChordPatternAttachment/abstractchordpatternattachment.cpp \
     DatabaseView/EventDatabaseView/eventtableviewdelegates.cpp \
-    Commands/AttachmentCommands/abstractchordpatternattachmenttransposecommand.cpp
+    Commands/AttachmentCommands/abstractchordpatternattachmenttransposecommand.cpp \
+    Dialogs/exportpdfdialog.cpp \
+    Dialogs/tageditor.cpp \
+    Dialogs/tagdialog.cpp
 
 HEADERS  += mainwindow.h \
     project.h \
@@ -242,7 +244,6 @@ HEADERS  += mainwindow.h \
     Commands/SongDatabaseCommands/songdatabasemovesongcommand.h \
     Commands/EventDatabaseCommands/eventdatabasemoveeventcommand.h \
     Commands/SongDatabaseCommands/songdatabasetoggleattributevisibility.h \
-    Dialogs/tagdialog.h \
     Commands/edittagscommand.h \
     PDFCreator/page.h \
     PDFCreator/pdfcreatorconfig.h \
@@ -263,7 +264,10 @@ HEADERS  += mainwindow.h \
     Attachments/ChordPatternAttachment/abstractchordpatternattachment.h \
     DatabaseView/EventDatabaseView/eventtableviewdelegates.h \
     Commands/AttachmentCommands/chordpatternattachmenteditpatterncommand.h \
-    Commands/AttachmentCommands/abstractchordpatternattachmenttransposecommand.h
+    Commands/AttachmentCommands/abstractchordpatternattachmenttransposecommand.h \
+    Dialogs/exportpdfdialog.h \
+    Dialogs/tageditor.h \
+    Dialogs/tagdialog.h
 
 FORMS    += mainwindow.ui \
     DatabaseView/SongDatabaseView/songtableviewcontainer.ui \
@@ -282,10 +286,12 @@ FORMS    += mainwindow.ui \
     DatabaseView/EventDatabaseView/setlistwidget.ui \
     AttachmentView/IndexedFileAttachmentView/AudioAttachmentView/audioslider.ui \
     AttachmentView/IndexedFileAttachmentView/indexedfilechoosedialog.ui \
-    Dialogs/tagdialog.ui \
     Dialogs/chordpatternviewer.ui \
     Dialogs/addfilestoindexdialog.ui \
-    AttachmentView/chordpatternproxyattachmentview.ui
+    AttachmentView/chordpatternproxyattachmentview.ui \
+    Dialogs/exportpdfdialog.ui \
+    Dialogs/tageditor.ui \
+    Dialogs/tagdialog.ui
 
 RESOURCES += \
     ressources.qrc

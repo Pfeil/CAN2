@@ -42,6 +42,7 @@ bool Attachment::create(const QJsonObject &object, Attachment *&attachment, Song
 {
     checkJsonObject( object, "classname", QJsonValue::String );
 
+
     QString classname = object.value("classname").toString();
     if (Creatable::category(classname) != "Attachment")
     {
@@ -50,6 +51,8 @@ bool Attachment::create(const QJsonObject &object, Attachment *&attachment, Song
     }
 
     attachment = static_cast<Attachment*>( Creatable::create( classname ) );
+
+    attachment->restoreFromJsonObject( object );
     attachment->setSong( song );
 
     attachment->setName( object["name"].toString() );

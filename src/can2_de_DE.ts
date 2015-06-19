@@ -1035,7 +1035,8 @@ Du musst die Datei zuerst zum Index hinzufügen bevor Du sie benutzen kannst.</t
     </message>
     <message>
         <location filename="mainwindow.ui" line="314"/>
-        <source>Save As</source>
+        <source>Save As ...</source>
+        <oldsource>Save As</oldsource>
         <translation>Speichern unter ...</translation>
     </message>
     <message>
@@ -1098,12 +1099,12 @@ Du musst die Datei zuerst zum Index hinzufügen bevor Du sie benutzen kannst.</t
         <translation>Lösche ausgewählte Anlage.</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="508"/>
+        <location filename="mainwindow.ui" line="512"/>
         <source>Archivate ...</source>
         <translation>Archivieren ...</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="513"/>
+        <location filename="mainwindow.ui" line="517"/>
         <source>Export all songs</source>
         <translation>Alle Songs exportieren ...</translation>
     </message>

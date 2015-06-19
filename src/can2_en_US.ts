@@ -1035,7 +1035,8 @@ Add it to the index before you can use it.</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="314"/>
-        <source>Save As</source>
+        <source>Save As ...</source>
+        <oldsource>Save As</oldsource>
         <translation>Save as ...</translation>
     </message>
     <message>
@@ -1098,12 +1099,12 @@ Add it to the index before you can use it.</translation>
         <translation>Delete selected attachment.</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="508"/>
+        <location filename="mainwindow.ui" line="512"/>
         <source>Archivate ...</source>
         <translation>Archivate ...</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="513"/>
+        <location filename="mainwindow.ui" line="517"/>
         <source>Export all songs</source>
         <translation>Export all songs ...</translation>
     </message>

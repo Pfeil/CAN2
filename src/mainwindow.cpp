@@ -258,7 +258,7 @@ void MainWindow::createAttachmentActions()
                 app().pushCommand( command );
                 updateWhichWidgetsAreEnabled();
 
-                if (lastAttachment->inherits( "ChordPatternAttachment" )
+                if (lastAttachment && lastAttachment->inherits( "ChordPatternAttachment" )
                  && command->attachment()->inherits( "ChordPatternProxyAttachment" ) )
                 {
                     qobject_assert_cast<ChordPatternProxyAttachment*>( command->attachment() )->setChordPatternAttachment(

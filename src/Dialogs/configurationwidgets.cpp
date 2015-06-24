@@ -168,7 +168,10 @@ public:
 
         connect( switchItem, &ConfigurableItem::valueChanged, [this](QVariant value)
         {
-            m_configWidget->setEnabled( value.toBool() );
+            if (m_configWidget)
+            {
+                m_configWidget->setEnabled( value.toBool() );
+            }
         });
         m_configWidget->setEnabled( m_switchItem->actualValue().toBool() );
 

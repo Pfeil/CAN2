@@ -12,6 +12,17 @@ extern "C"
 #include <libavformat/avformat.h>
 #include <libavutil/avutil.h>
 }
+
+#elif defined Q_OS_OSX
+#include <soundtouch/SoundTouch.h>
+#define HAVE_SOUNDTOUCH
+extern "C"
+{
+#include <libavcodec/avcodec.h>
+#include <libavformat/avformat.h>
+#include <libavutil/avutil.h>
+}
+
 #elif defined Q_OS_WIN32
 
 #if 1

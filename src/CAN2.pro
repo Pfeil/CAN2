@@ -17,10 +17,12 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = CAN2
 TEMPLATE = app
 
-QMAKE_CXXFLAGS += -std=c++0x
-QMAKE_LFLAGS += -static-libgcc
+QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.9
+QMAKE_CXXFLAGS += -stdlib=libc++ -std=c++0x
+QMAKE_LFLAGS += # -static -lc++ #-static-libgcc #clang -> no libgcc, no static libs available
 
 unix {
+INCLUDEPATH += /usr/local/include
 LIBS += -lgit2
 LIBS += -L/usr/local/lib -lpoppler-qt5
 LIBS += -lavformat -lavcodec -lavutil -lpthread
